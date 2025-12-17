@@ -3,6 +3,9 @@
 //
 #include <stdio.h>
 
+#include "startPage/startPage.h"
+
 int main() {
     printf("Hello World!\n");
+    showStartPage();
 }
