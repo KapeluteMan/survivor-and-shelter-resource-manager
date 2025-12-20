@@ -6,4 +6,5 @@
 
 void showStartPage() {
     printf("strona startowa");
+    printf("Loading");
 }

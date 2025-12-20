@@ -6,4 +6,5 @@ set(CMAKE_C_STANDARD 11)
 add_executable(survivor-and-shelter-resource-manager
         main.c
         startPage/startPage.c
-        startPage/startPage.h)
+        startPage/startPage.h
+)
