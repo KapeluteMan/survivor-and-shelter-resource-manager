@@ -7,4 +7,6 @@ add_executable(survivor-and-shelter-resource-manager
         main.c
         startPage/startPage.c
         startPage/startPage.h
+        insertingFunctions/insertingFunctions.c
+        insertingFunctions/insertingFunctions.h
 )
