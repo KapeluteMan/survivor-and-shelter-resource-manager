@@ -1,0 +1,8 @@
+//
+// Created by wojte on 21.12.2025.
+//
+
+#ifndef UNTITLED5_ADDFROMFILE_H
+#define UNTITLED5_ADDFROMFILE_H
+
+#endif //UNTITLED5_ADDFROMFILE_H
