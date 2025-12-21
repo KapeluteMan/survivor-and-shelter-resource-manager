@@ -9,4 +9,16 @@ add_executable(survivor-and-shelter-resource-manager
         startPage/startPage.h
         insertingFunctions/insertingFunctions.c
         insertingFunctions/insertingFunctions.h
+        quest/addFromFile.c
+        quest/addFromFile.h
+        survivor/addFromFIle.c
+        survivor/addFromFIle.h
+        survivor/show.c
+        survivor/show.h
+        quest/show.c
+        quest/show.h
+        survivor/listOperations.c
+        survivor/listOperations.h
+        quest/listOperations.c
+        quest/listOperations.h
 )
