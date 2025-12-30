@@ -214,45 +214,45 @@ void short_print_list(struct Survivor *head) {
 }
 
 
-int main() {
-    struct Survivor *head = NULL;
-    //add_to_file(head);
-
-    int menu = 1;
-
-    while (menu == 1) {
-        add_to_file(head);
-        printf(
-            "Select an option:\n 1 - Add the survivor\n 2 - Check the amount of survivors \n 3 - List the survivors\n 4 - Delete a survivor via id \n 5 - Exit\n");
-        int wybor1 = insertInt();
-        switch (wybor1) {
-            case 1:
-                printf("Add the survivor:\n");
-                head = add_survivor(head);
-                break;
-            case 2:
-                printf("Amount of survivors: %d\n", check_amount(head));
-                break;
-            case 3:
-                printf("List:\n");
-                print_list(head);
-                break;
-            case 4:
-                printf("Delete a survivor:\n");
-                printf("Available survivors (who are not on a mission):\n");
-                short_print_list(head);
-                int enter_id = insertInt();
-                head = delete_survivor(head, enter_id);
-                break;
-            case 5:
-                menu = 0;
-                break;
-
-            default:
-                printf("Wrong option\n");
-        }
-    }
-
-
-    return 0;
-}
+// int main() {
+//     struct Survivor *head = NULL;
+//     //add_to_file(head);
+//
+//     int menu = 1;
+//
+//     while (menu == 1) {
+//         add_to_file(head);
+//         printf(
+//             "Select an option:\n 1 - Add the survivor\n 2 - Check the amount of survivors \n 3 - List the survivors\n 4 - Delete a survivor via id \n 5 - Exit\n");
+//         int wybor1 = insertInt();
+//         switch (wybor1) {
+//             case 1:
+//                 printf("Add the survivor:\n");
+//                 head = add_survivor(head);
+//                 break;
+//             case 2:
+//                 printf("Amount of survivors: %d\n", check_amount(head));
+//                 break;
+//             case 3:
+//                 printf("List:\n");
+//                 print_list(head);
+//                 break;
+//             case 4:
+//                 printf("Delete a survivor:\n");
+//                 printf("Available survivors (who are not on a mission):\n");
+//                 short_print_list(head);
+//                 int enter_id = insertInt();
+//                 head = delete_survivor(head, enter_id);
+//                 break;
+//             case 5:
+//                 menu = 0;
+//                 break;
+//
+//             default:
+//                 printf("Wrong option\n");
+//         }
+//     }
+//
+//
+//     return 0;
+// }

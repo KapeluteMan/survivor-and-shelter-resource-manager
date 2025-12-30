@@ -31,7 +31,7 @@ typedef struct Survivor {
     int threatLevel;
     enum StatusOfSurvivor statusOfSurvivor;
     struct Survivor* next;
-};
+}Survivor;
 
 void copySurvivor(struct Survivor* from, struct Survivor* to);
 
