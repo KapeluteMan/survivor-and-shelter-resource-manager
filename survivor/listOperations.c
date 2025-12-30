@@ -3,20 +3,20 @@
 #include <conio.h>
 #include "listOperations.h"
 #include "../insertingFunctions/insertingFunctions.c"
+#include "survivorStruct.h"
 
 
 int id_add = 0;
 
 
-
 ////////////////////////////////////////////////////////
 
-Survivor* add_last(Survivor* head, Survivor* n) {
+struct Survivor *add_last(struct Survivor *head, struct Survivor *n) {
     if (head == NULL) {
         return n;
     }
 
-    Survivor* tmp = head;
+    struct Survivor *tmp = head;
     while (tmp->next != NULL) {
         tmp = tmp->next;
     }
@@ -25,62 +25,62 @@ Survivor* add_last(Survivor* head, Survivor* n) {
 }
 
 
-void add_to_file(Survivor* head) {
-
+void add_to_file(struct Survivor *head) {
     FILE *f = fopen("survivor.txt", "w");
-    if (!f) { perror("Error opening survivor.txt"); return;}
+    if (!f) {
+        perror("Error opening survivor.txt");
+        return;
+    }
 
-    Survivor* n = head;
+    struct Survivor *n = head;
 
     while (n != NULL) {
-        fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", n->id, n->name, n->skill, n->rations, n->health, n->stateOfHealth, n->threatLevel, n->statusOfSurvivor);
+        fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", n->id, n->name, n->skill, n->rations, n->health,
+                n->stateOfHealth, n->threatLevel, n->statusOfSurvivor);
         n = n->next;
     }
 
     fclose(f);
 }
 
-Survivor* delete_survivor(Survivor* head, int id) {
+struct Survivor *delete_survivor(struct Survivor *head, int id) {
     if (head == NULL) {
         return head;
     }
 
     if (head->id == id) {
-        Survivor* new_head = head->next;
+        struct Survivor *new_head = head->next;
         free(head);
         head = new_head;
         return head;
     }
 
-    Survivor* prev = head;
-    Survivor* curr = head->next;
+    struct Survivor *prev = head;
+    struct Survivor *curr = head->next;
 
     while (curr != NULL) {
         if (curr->id == id) {
             prev->next = curr->next;
             free(curr);
             return head;
-
         }
 
         prev = curr;
         curr = curr->next;
-
     }
     printf("//A survivor not found\n");
     return head;
 }
 
-int check_amount(Survivor* head) {
-    Survivor* n = head;
+int check_amount(struct Survivor *head) {
+    struct Survivor *n = head;
     int i = 0;
 
     while (n != NULL) {
         i++;
-        n=n->next;
+        n = n->next;
     }
     return i;
-
 }
 
 
@@ -93,7 +93,6 @@ int check_rations() {
         }
     } while (tmp < 0);
     return tmp;
-
 }
 
 int check_skill() {
@@ -141,9 +140,8 @@ int threat_check() {
 }
 
 
-
-Survivor* add_survivor(Survivor* head) {
-    Survivor* n = calloc(1, sizeof(Survivor));
+struct Survivor *add_survivor(struct Survivor *head) {
+    struct Survivor *n = calloc(1, sizeof(struct Survivor));
 
     if (n == NULL) {
         return head; //zwarca starą głowę listy
@@ -181,8 +179,8 @@ Survivor* add_survivor(Survivor* head) {
     return add_last(head, n);
 }
 
-void print_list(Survivor* head) {
-    Survivor* n = head;
+void print_list(struct Survivor *head) {
+    struct Survivor *n = head;
 
     while (n != NULL) {
         char classes_tab[3][10] = {"Medic", "Engineer", "Ordinary"};
@@ -200,14 +198,15 @@ void print_list(Survivor* head) {
     }
 }
 
-void short_print_list(Survivor* head) {
-    Survivor* n = head;
+void short_print_list(struct Survivor *head) {
+    struct Survivor *n = head;
 
     while (n != NULL) {
         add_to_file(head);
         if (n->statusOfSurvivor == 0) {
             char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
-            printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name, stateofhealth_tab[n->stateOfHealth], n->threatLevel);
+            printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
+                   stateofhealth_tab[n->stateOfHealth], n->threatLevel);
         }
 
         n = n->next;
@@ -215,15 +214,16 @@ void short_print_list(Survivor* head) {
 }
 
 
-int main(){
-    Survivor *head = NULL;
+int main() {
+    struct Survivor *head = NULL;
     //add_to_file(head);
 
     int menu = 1;
 
     while (menu == 1) {
         add_to_file(head);
-        printf("Select an option:\n 1 - Add the survivor\n 2 - Check the amount of survivors \n 3 - List the survivors\n 4 - Delete a survivor via id \n 5 - Exit\n");
+        printf(
+            "Select an option:\n 1 - Add the survivor\n 2 - Check the amount of survivors \n 3 - List the survivors\n 4 - Delete a survivor via id \n 5 - Exit\n");
         int wybor1 = insertInt();
         switch (wybor1) {
             case 1:
@@ -231,7 +231,7 @@ int main(){
                 head = add_survivor(head);
                 break;
             case 2:
-                printf("Amount of survivors: %d\n",check_amount(head));
+                printf("Amount of survivors: %d\n", check_amount(head));
                 break;
             case 3:
                 printf("List:\n");
@@ -251,11 +251,8 @@ int main(){
             default:
                 printf("Wrong option\n");
         }
-
     }
 
 
     return 0;
 }
-
-

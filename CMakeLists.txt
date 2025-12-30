@@ -23,4 +23,7 @@ add_executable(survivor-and-shelter-resource-manager
         quest/listOperations.h
         quest/questStruct.h
         survivor/survivorStruct.h
+        survivor/find.c
+        survivor/find.h
+        survivor/survivorStruct.c
 )

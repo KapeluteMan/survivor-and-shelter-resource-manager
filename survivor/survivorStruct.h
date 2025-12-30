@@ -33,4 +33,6 @@ typedef struct Survivor {
     struct Survivor* next;
 };
 
+void copySurvivor(struct Survivor* from, struct Survivor* to);
+
 #endif //UNTITLED5_SURVIVORSTRUCT_H
