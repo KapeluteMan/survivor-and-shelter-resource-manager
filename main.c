@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "startPage/startPage.h"
-#include "insertingFunctions/insertingFunctions.h"
-#include "survivor/addFromFile.h"
+#include "programStart/startingFuntions.h"
 
 int main() {
-    printf("Hello World!\n");
+    showStartPage();
 }

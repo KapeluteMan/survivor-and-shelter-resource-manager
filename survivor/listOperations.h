@@ -8,7 +8,7 @@ int threat_check();
 struct Survivor* add_last(struct Survivor* head, struct Survivor* n);
 int check_skill();
 int check_rations();
-int check_amount();
+int check_amount(struct Survivor *head);
 struct Survivor* delete_survivor(struct Survivor* head, int id);
 void print_list(struct Survivor* head);
 void short_print_list(struct Survivor* head);
