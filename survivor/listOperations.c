@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <conio.h>
 #include "listOperations.h"
-#include "../insertingFunctions/insertingFunctions.c"
+#include <string.h>
+#include "../insertingFunctions/insertingFunctions.h"
 #include "survivorStruct.h"
 
 
+
 int id_add = 0;
-
-
-////////////////////////////////////////////////////////
 
 struct Survivor *add_last(struct Survivor *head, struct Survivor *n) {
     if (head == NULL) {
@@ -33,7 +32,6 @@ void add_to_file(struct Survivor *head) {
     }
 
     struct Survivor *n = head;
-
     while (n != NULL) {
         fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", n->id, n->name, n->skill, n->rations, n->health,
                 n->stateOfHealth, n->threatLevel, n->statusOfSurvivor);
@@ -84,41 +82,17 @@ int check_amount(struct Survivor *head) {
 }
 
 
-int check_rations() {
+int check_interval(int a, int b) {
     int tmp;
     do {
         tmp = insertInt();
-        if (tmp < 0) {
-            printf("Wrong amount\n");
+        if (tmp < a || tmp > b) {
+            printf("!Value is out of range <%d-%d>!\n", a, b);
         }
-    } while (tmp < 0);
-    return tmp;
-}
-
-int check_skill() {
-    int tmp;
-    do {
-        tmp = insertInt();
-        if (tmp < 0 || tmp > 2) {
-            printf("!Wrong class!\n");
-        }
-    } while (tmp < 0 || tmp > 2);
-    return tmp;
-}
-
-
-int check_health() {
-    int tmp;
-    do {
-        tmp = insertInt();
-        if (tmp < 0 || tmp > 100) {
-            printf("!The health value is out of range (0-100)!\n");
-        }
-    } while (tmp < 0 || tmp > 100);
+    } while (tmp < a || tmp > b);
 
     return tmp;
 }
-
 
 int check_state_health(int value) {
     if (value >= 70) {
@@ -126,19 +100,6 @@ int check_state_health(int value) {
     }
     return 1;
 }
-
-int threat_check() {
-    int threat_tmp;
-    do {
-        threat_tmp = insertInt();
-        if (threat_tmp < 0 || threat_tmp > 10) {
-            printf("!The threat value is out of range (0-10)!\n");
-        }
-    } while (threat_tmp < 0 || threat_tmp > 10);
-
-    return threat_tmp;
-}
-
 
 struct Survivor *add_survivor(struct Survivor *head) {
     struct Survivor *n = calloc(1, sizeof(struct Survivor));
@@ -148,7 +109,7 @@ struct Survivor *add_survivor(struct Survivor *head) {
     }
 
     int amount = check_amount(head);
-    if (amount >= 2) {
+    if (amount >= 3) {
         printf("//You cannot add more survivors!\n");
         printf("Some other actions should be taken...\n");
         return head;
@@ -161,17 +122,17 @@ struct Survivor *add_survivor(struct Survivor *head) {
 
     printf("// Insert their skill:\n");
     printf(" - 0: Medic\n - 1: Engineer\n - 2: Ordinary\n");
-    n->skill = check_skill();
+    n->skill = check_interval(0,2);
 
     printf("// Insert their demand for rations:\n");
-    n->rations = check_rations();
+    n->rations = check_interval(0,100);
 
     printf("// Insert their health (0-100):\n");
-    n->health = check_health();
+    n->health = check_interval(0,100);
     n->stateOfHealth = check_state_health(n->health);
 
     printf("// Insert their threat level (0-10):\n");
-    n->threatLevel = threat_check();
+    n->threatLevel = check_interval(0,10);
 
     n->statusOfSurvivor = 0;
     n->next = NULL;
@@ -179,80 +140,112 @@ struct Survivor *add_survivor(struct Survivor *head) {
     return add_last(head, n);
 }
 
-void print_list(struct Survivor *head) {
-    struct Survivor *n = head;
-
-    while (n != NULL) {
-        char classes_tab[3][10] = {"Medic", "Engineer", "Ordinary"};
-        char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
-        char status_tab[2][10] = {"Waiting", "On Mission"};
-        printf("Id: %d\n", n->id);
-        printf("Name: %s\n", n->name);
-        printf("Class: %s\n", classes_tab[n->skill]);
-        printf("Demand for rations: %d\n", n->rations);
-        printf("Health: %d\n", n->health);
-        printf("State of health: %s\n", stateofhealth_tab[n->stateOfHealth]);
-        printf("Status: %s\n", status_tab[n->statusOfSurvivor]);
-        printf("Threat level: %d\n----------------------\n\n", n->threatLevel);
-        n = n->next;
+void assign_segregate(struct Survivor* a, struct Survivor* b) {
+    if (a == NULL || b == NULL) {
+        return;
     }
+    int tmp_id = a->id;
+    char tmp_name[100];
+    strcpy(tmp_name, a->name);
+    int tmp_skill = a->skill;
+    int tmp_rations = a->rations;
+    int tmp_health = a->health;
+    int tmp_state = a->stateOfHealth;
+    int tmp_threat = a->threatLevel;
+    int tmp_status = a->statusOfSurvivor;
+
+    a->id = b->id;
+    strcpy(a->name, b->name);
+    a->skill = b->skill;
+    a->rations = b->rations;
+    a->health = b->health;
+    a->stateOfHealth = b->stateOfHealth;
+    a->threatLevel = b->threatLevel;
+    a->statusOfSurvivor = b->statusOfSurvivor;
+
+    b->id = tmp_id;
+    strcpy(b->name, tmp_name);
+    b->skill = tmp_skill;
+    b->rations = tmp_rations;
+    b->health = tmp_health;
+    b->stateOfHealth = tmp_state;
+    b->threatLevel = tmp_threat;
+    b->statusOfSurvivor = tmp_status;
 }
 
-void short_print_list(struct Survivor *head) {
-    struct Survivor *n = head;
 
-    while (n != NULL) {
-        add_to_file(head);
-        if (n->statusOfSurvivor == 0) {
-            char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
-            printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
-                   stateofhealth_tab[n->stateOfHealth], n->threatLevel);
+
+void bubble_segregate(struct Survivor* head, int option, int type) {
+    if (head == NULL) {
+        return;
+    }
+
+    int swapped;
+    struct Survivor* lptr = NULL;
+    do {
+        swapped = 0;
+        struct Survivor *ptr1 = head;
+
+        while (ptr1->next != lptr) {
+            if (type == 0) {
+                //name
+                if (option == 0 && (strcmp(ptr1->name, ptr1->next->name) > 0)){
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //skill
+                else if (option == 1 && (ptr1->skill > ptr1->next->skill))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //rations
+                else if (option == 2 && (ptr1->rations > ptr1->next->rations))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //health
+                else if (option == 3 && (ptr1->health > ptr1->next->health))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //threatLevel
+                else if (option == 4 && (ptr1->threatLevel > ptr1->next->threatLevel))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+
+            }else if (type == 1) {
+                //name
+                if (option == 0 && (strcmp(ptr1->name, ptr1->next->name) < 0)){
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //skill
+                else if (option == 1 && (ptr1->skill < ptr1->next->skill))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //rations
+                else if (option == 2 && (ptr1->rations < ptr1->next->rations))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //health
+                else if (option == 3 && (ptr1->health < ptr1->next->health))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+                //threatLevel
+                else if (option == 4 && (ptr1->threatLevel < ptr1->next->threatLevel))  {
+                    assign_segregate(ptr1, ptr1->next);
+                    swapped = 1;
+                }
+
+            }
+            ptr1 = ptr1->next;
         }
-
-        n = n->next;
-    }
+        lptr = ptr1;
+    } while (swapped);
 }
 
 
-int main() {
-    struct Survivor *head = NULL;
-    //add_to_file(head);
-
-    int menu = 1;
-
-    while (menu == 1) {
-        add_to_file(head);
-        printf(
-            "Select an option:\n 1 - Add the survivor\n 2 - Check the amount of survivors \n 3 - List the survivors\n 4 - Delete a survivor via id \n 5 - Exit\n");
-        int wybor1 = insertInt();
-        switch (wybor1) {
-            case 1:
-                printf("Add the survivor:\n");
-                head = add_survivor(head);
-                break;
-            case 2:
-                printf("Amount of survivors: %d\n", check_amount(head));
-                break;
-            case 3:
-                printf("List:\n");
-                print_list(head);
-                break;
-            case 4:
-                printf("Delete a survivor:\n");
-                printf("Available survivors (who are not on a mission):\n");
-                short_print_list(head);
-                int enter_id = insertInt();
-                head = delete_survivor(head, enter_id);
-                break;
-            case 5:
-                menu = 0;
-                break;
-
-            default:
-                printf("Wrong option\n");
-        }
-    }
-
-
-    return 0;
-}
