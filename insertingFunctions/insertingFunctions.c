@@ -1,6 +1,5 @@
-#include "insertingFunctions.h"
 #include <stdio.h>
-#include <string.h>
+#include "insertingFunctions.h"
 
 int insertInt() {
     int pom=0;

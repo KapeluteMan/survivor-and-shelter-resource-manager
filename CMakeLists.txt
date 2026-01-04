@@ -5,8 +5,8 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(survivor-and-shelter-resource-manager
         main.c
-        startPage/startPage.c
-        startPage/startPage.h
+        programStart/startingFuntions.c
+        programStart/startingFuntions.h
         insertingFunctions/insertingFunctions.c
         insertingFunctions/insertingFunctions.h
         quest/addFromFile.c
@@ -23,7 +23,7 @@ add_executable(survivor-and-shelter-resource-manager
         quest/listOperations.h
         quest/questStruct.h
         survivor/survivorStruct.h
+        survivor/survivorStruct.c
         survivor/find.c
         survivor/find.h
-        survivor/survivorStruct.c
 )
