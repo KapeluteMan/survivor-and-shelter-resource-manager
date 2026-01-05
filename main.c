@@ -52,7 +52,7 @@ int main() {
                 printf("Available survivors (who are not on a mission):\n");
                 short_print_list(head);
                 int enter_id = insert_int();
-                head = delete_survivor(head, enter_id);
+                head = delete_by_id(head, enter_id);
                 break;
             case 5:
                 printf("Choose an option: \n"

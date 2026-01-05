@@ -9,7 +9,7 @@
 struct Survivor* add_survivors_from_file(){
     FILE *f = fopen("../files/survivors.txt","r");
     if (!f) {
-        printf("Error in opening file - survivors.txt\n");
+        perror("Error opening survivor.txt");
         return NULL;
     }
 

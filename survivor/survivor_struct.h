@@ -18,7 +18,8 @@ enum state_of_health {
 
 enum status_of_survivor {
     WAITING,
-    ON_MISSION
+    ON_MISSION,
+    MISSING
 };
 
 typedef struct Survivor {
