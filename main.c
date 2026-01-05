@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include "startPage/startPage.h"
-#include "insertingFunctions/insertingFunctions.h"
-#include "survivor/addFromFile.h"
-#include "survivor/listOperations.h"
+// #include "startPage/startPage.h"
+#include "insertingFunctions/inserting_functions.h"
+#include "survivor/add_from_file.h"
+#include "survivor/list_operations.h"
 #include "survivor/show.h"
 
 int main() {
@@ -24,7 +24,7 @@ int main() {
             " 4 - Delete a survivor via id \n"
             " 5 - Segregate"
             "\n");
-        int wybor1 = insertInt();
+        int wybor1 = insert_int();
         switch (wybor1) {
             case 1:
                 printf("Add the survivor:\n");
@@ -41,7 +41,7 @@ int main() {
                 printf("Delete a survivor:\n");
                 printf("Available survivors (who are not on a mission):\n");
                 short_print_list(head);
-                int enter_id = insertInt();
+                int enter_id = insert_int();
                 head = delete_survivor(head, enter_id);
                 break;
             case 5:

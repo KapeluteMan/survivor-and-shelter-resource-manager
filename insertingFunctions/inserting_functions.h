@@ -1,7 +1,7 @@
 #ifndef INSERTINGFUNCTIONS_H
 #define INSERTINGFUNCTIONS_H
 
-int insertInt();
-void insertString(char* text);
+int insert_int();
+void insert_string(char* text);
 
 #endif //INSERTINGFUNCTIONS_H

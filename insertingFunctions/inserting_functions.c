@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "insertingFunctions.h"
+#include "inserting_functions.h"
 
-int insertInt() {
+int insert_int() {
     int pom=0;
     int tym=1;
     while (tym==1) {
@@ -20,6 +20,6 @@ int insertInt() {
     return pom;
 }
 
-void insertString(char* text) {
+void insert_string(char* text) {
     scanf("%99[^\n]s", text);
 }

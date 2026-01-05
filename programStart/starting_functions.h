@@ -5,6 +5,6 @@
 #ifndef UNTITLED5_STARTPAGE_H
 #define UNTITLED5_STARTPAGE_H
 
-void showStartPage(void);
+void show_start_page(void);
 
 #endif //UNTITLED5_STARTPAGE_H

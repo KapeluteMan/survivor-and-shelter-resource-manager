@@ -1,13 +1,13 @@
 //
 // Created by wojte on 21.12.2025.
 //
-#include "addFromFile.h"
-#include "questStruct.h"
-#include "listOperations.h"
+#include "add_from_file.h"
+#include "quest_struct.h"
+#include "list_operations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Quest* addQuestFromFile(struct Quest* head) {
+struct Quest* add_quest_from_file(struct Quest* head) {
     FILE *f = fopen("quests.txt", "r");
     if (!f) {
         printf("Error opening file - quests.txt");
@@ -19,10 +19,10 @@ struct Quest* addQuestFromFile(struct Quest* head) {
     while (fscanf(f ,"%d %d", &length, &success)==2) {
         struct Quest* quest = malloc(sizeof(struct Quest));
         quest->next = NULL;
-        quest->questLength = length;
-        quest->successionRate = success;
+        quest->quest_length = length;
+        quest->succession_rate = success;
 
-        head = addQuest(head, quest);
+        head = add_quest(head, quest);
     }
 
 
