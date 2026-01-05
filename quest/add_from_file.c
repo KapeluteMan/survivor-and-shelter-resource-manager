@@ -26,4 +26,6 @@ struct Quest* add_quest_from_file(struct Quest* head) {
     }
 
 
+
+
 }

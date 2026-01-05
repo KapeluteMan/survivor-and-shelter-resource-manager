@@ -5,10 +5,17 @@
 #include "survivor/add_from_file.h"
 #include "survivor/list_operations.h"
 #include "survivor/show.h"
+#include "quest/add_from_file.h"
+#include "quest/list_operations.h"
+#include "quest/show.h"
+
+
 
 int main() {
     struct Survivor *head = NULL;
     //add_to_file(head);
+
+    struct Quest *q_head = NULL;
 
     int menu = 1;
 
@@ -22,7 +29,10 @@ int main() {
             " 2 - Check the amount of survivors \n"
             " 3 - List the survivors\n"
             " 4 - Delete a survivor via id \n"
-            " 5 - Segregate"
+            " 5 - Segregate \n"
+            " 6 - Show Quests \n"
+            " 7 - Exit\n"
+
             "\n");
         int wybor1 = insert_int();
         switch (wybor1) {
@@ -57,7 +67,13 @@ int main() {
 
                 bubble_segregate(head, option, type);
                 break;
+
             case 6:
+                printf("List:\n");
+                print_quest(q_head);
+
+                break;
+            case 7:
                 menu = 0;
                 break;
 
