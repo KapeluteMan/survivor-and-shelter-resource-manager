@@ -22,7 +22,7 @@ int main() {
     while (menu == 1) {
         int option = 0;
         int type = 0;
-        add_to_file(head);
+        add_one_to_file(head);
         printf(
             "Select an option:\n"
             " 1 - Add the survivor\n"
