@@ -1,5 +1,5 @@
-#include "survivorStruct.h"
-#include "listOperations.h"
+#include "survivor_struct.h"
+#include "list_operations.h"
 
 #include "find.h"
 #include <stdio.h>
@@ -7,7 +7,7 @@
 #include <string.h>
 
 //zwraca wakżnik na znaleziony element (niepowtarzalny id)
-struct Survivor *findById(struct Survivor *head, const int id) {
+struct Survivor *find_by_id(struct Survivor *head, const int id) {
     struct Survivor *current = head;
     while (current != NULL) {
         if (current->id == id) {
@@ -20,7 +20,7 @@ struct Survivor *findById(struct Survivor *head, const int id) {
 }
 
 //zwraca wakżnik na znaleziony element (niepowtarzalny name)
-struct Survivor *findByName(struct Survivor *head, const char *name) {
+struct Survivor *find_by_name(struct Survivor *head, const char *name) {
     struct Survivor *current = head;
     while (current != NULL) {
         if (strcmp(current->name, name) == 0) {
@@ -33,89 +33,89 @@ struct Survivor *findByName(struct Survivor *head, const char *name) {
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
 // mode: 1->dokładna wartość, 2 -> mniejsza niż, 3 -> większa niż
-struct Survivor *findFirstByPrefixName(struct Survivor *head, const char *prefix) {
+struct Survivor *find_by_prefix_name(struct Survivor *head, const char *prefix) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
         if (strncmp(current->name, prefix, strlen(prefix)) == 0) {
-            newSurvivor = calloc(1, sizeof(struct Survivor));
-            copySurvivor(current, newSurvivor);
-            if (newSurvivor != NULL) {
-                newHead = add_last(newHead, newSurvivor);
+            new_survivor = calloc(1, sizeof(struct Survivor));
+            copy_survivor(current, new_survivor);
+            if (new_survivor != NULL) {
+                new_head = add_last(new_head, new_survivor);
             } else {
                 printf("Niepowodzenie w tworzeniu: Survivor\n");
-                return newHead;
+                return new_head;
             }
         }
         current = current->next;
     }
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
-struct Survivor *findBySkill(struct Survivor *head, const enum SpecialistSkill skill) {
+struct Survivor *find_by_skill(struct Survivor *head, const enum specialist_skill skill) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
         if (current->skill == skill) {
-            newSurvivor = calloc(1, sizeof(struct Survivor));
-            copySurvivor(current, newSurvivor);
-            if (newSurvivor != NULL) {
-                newHead = add_last(newHead, newSurvivor);
+            new_survivor = calloc(1, sizeof(struct Survivor));
+            copy_survivor(current, new_survivor);
+            if (new_survivor != NULL) {
+                new_head = add_last(new_head, new_survivor);
             } else {
                 printf("Niepowodzenie w tworzeniu: Survivor\n");
-                return newHead;
+                return new_head;
             }
         }
     }
 
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
 // mode: 1->dokładna wartość, 2 -> mniejsza niż, 3 -> większa niż
-struct Survivor *findByRations(struct Survivor *head, const int rations, const int mode) {
+struct Survivor *find_by_rations(struct Survivor *head, const int rations, const int mode) {
 
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
         switch (mode) {
             case 1:
                 if (current->rations == rations) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 2:
                 if (current->rations < rations) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 3:
                 if (current->rations > rations) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
@@ -127,51 +127,51 @@ struct Survivor *findByRations(struct Survivor *head, const int rations, const i
         current = current->next;
     }
 
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
 // mode: 1->dokładna wartość, 2 -> mniejsza niż, 3 -> większa niż
-struct Survivor *findByHealth(struct Survivor *head, const int health, const int mode) {
+struct Survivor *find_by_health(struct Survivor *head, const int health, const int mode) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
 
     while (current != NULL) {
         switch (mode) {
             case 1:
                 if (current->health == health) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 2:
                 if (current->health < health) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 3:
                 if (current->health > health) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
@@ -183,71 +183,71 @@ struct Survivor *findByHealth(struct Survivor *head, const int health, const int
         current = current->next;
     }
 
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
-struct Survivor *findByHealthState(struct Survivor *head, const enum StateOfHealth stateOfHealth) {
+struct Survivor *find_by_health_state(struct Survivor *head, const enum state_of_health state_of_health) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
-        if (current->stateOfHealth == stateOfHealth) {
-            newSurvivor = calloc(1, sizeof(struct Survivor));
-            copySurvivor(current, newSurvivor);
-            if (newSurvivor != NULL) {
-                newHead = add_last(newHead, newSurvivor);
+        if (current->state_of_health == state_of_health) {
+            new_survivor = calloc(1, sizeof(struct Survivor));
+            copy_survivor(current, new_survivor);
+            if (new_survivor != NULL) {
+                new_head = add_last(new_head, new_survivor);
             } else {
                 printf("Niepowodzenie w tworzeniu: Survivor\n");
-                return newHead;
+                return new_head;
             }
         }
     }
 
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
 // mode: 1->dokładna wartość, 2 -> mniejsza niż, 3 -> większa niż
-struct Survivor *findByThreatLevel(struct Survivor *head, const int threatLevel, const int mode) {
+struct Survivor *find_by_threat_level(struct Survivor *head, const int threat_level, const int mode) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
         switch (mode) {
             case 1:
-                if (current->threatLevel == threatLevel) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                if (current->threat_level == threat_level) {
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 2:
-                if (current->threatLevel < threatLevel) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                if (current->threat_level < threat_level) {
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor\n");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
             case 3:
-                if (current->threatLevel > threatLevel) {
-                    newSurvivor = calloc(1, sizeof(struct Survivor));
-                    copySurvivor(current, newSurvivor);
-                    if (newSurvivor != NULL) {
-                        newHead = add_last(newHead, newSurvivor);
+                if (current->threat_level > threat_level) {
+                    new_survivor = calloc(1, sizeof(struct Survivor));
+                    copy_survivor(current, new_survivor);
+                    if (new_survivor != NULL) {
+                        new_head = add_last(new_head, new_survivor);
                     } else {
                         printf("Niepowodzenie w tworzeniu: Survivor");
-                        return newHead;
+                        return new_head;
                     }
                 }
                 break;
@@ -259,26 +259,26 @@ struct Survivor *findByThreatLevel(struct Survivor *head, const int threatLevel,
         current = current->next;
     }
 
-    return newHead;
+    return new_head;
 }
 
 //zwraca wskanik na head listy znalezionych (może być NULL)
-struct Survivor *findFirstByStatus(struct Survivor *head, const enum StatusOfSurvivor status) {
+struct Survivor *find_first_by_status(struct Survivor *head, const enum status_of_survivor status) {
     struct Survivor *current = head;
-    struct Survivor *newHead = NULL;
-    struct Survivor *newSurvivor = NULL;
+    struct Survivor *new_head = NULL;
+    struct Survivor *new_survivor = NULL;
     while (current != NULL) {
-        if (current->statusOfSurvivor == status) {
-            newSurvivor = calloc(1, sizeof(struct Survivor));
-            copySurvivor(current, newSurvivor);
-            if (newSurvivor != NULL) {
-                newHead = add_last(newHead, newSurvivor);
+        if (current->status_of_survivor == status) {
+            new_survivor = calloc(1, sizeof(struct Survivor));
+            copy_survivor(current, new_survivor);
+            if (new_survivor != NULL) {
+                new_head = add_last(new_head, new_survivor);
             } else {
                 printf("Niepowodzenie w tworzeniu: Survivor\n");
-                return newHead;
+                return new_head;
             }
         }
     }
 
-    return newHead;
+    return new_head;
 }

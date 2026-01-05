@@ -1,12 +1,12 @@
-#include "addFromFile.h"
-#include "survivorStruct.h"
+#include "add_from_file.h"
+#include "survivor_struct.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-struct Survivor* addSurvivorsFromFile(){
+struct Survivor* add_survivors_from_file(){
     FILE *f = fopen("../files/survivors.txt","r");
     if (!f) {
         printf("Error in opening file - survivors.txt\n");
@@ -22,11 +22,11 @@ struct Survivor* addSurvivorsFromFile(){
         strcpy(pom->name,name);
         pom->health = health;
         pom->skill = skill;
-        pom->threatLevel = threat;
+        pom->threat_level = threat;
         if (health>50) {
-            pom->stateOfHealth=HEALTHY;
+            pom->state_of_health=HEALTHY;
         } else {
-            pom->stateOfHealth=WEAKEN;
+            pom->state_of_health=WEAKEN;
         }
         pom->next = NULL;
     }

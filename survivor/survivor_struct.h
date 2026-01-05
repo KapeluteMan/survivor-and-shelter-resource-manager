@@ -5,18 +5,18 @@
 #ifndef UNTITLED5_SURVIVORSTRUCT_H
 #define UNTITLED5_SURVIVORSTRUCT_H
 
-enum SpecialistSkill {
+enum specialist_skill {
     MEDIC,
     ENGINEER,
     ORDINARY
 };
 
-enum StateOfHealth {
+enum state_of_health {
     HEALTHY,
     WEAKEN
 };
 
-enum StatusOfSurvivor {
+enum status_of_survivor {
     WAITING,
     ON_MISSION
 };
@@ -24,15 +24,15 @@ enum StatusOfSurvivor {
 typedef struct Survivor {
     int id;
     char name[100];
-    enum SpecialistSkill skill;
+    enum specialist_skill skill;
     int rations;
     int health;
-    enum StateOfHealth stateOfHealth;
-    int threatLevel;
-    enum StatusOfSurvivor statusOfSurvivor;
+    enum state_of_health state_of_health;
+    int threat_level;
+    enum status_of_survivor status_of_survivor;
     struct Survivor* next;
 }Survivor;
 
-void copySurvivor(struct Survivor* from, struct Survivor* to);
+void copy_survivor(struct Survivor* from, struct Survivor* to);
 
 #endif //UNTITLED5_SURVIVORSTRUCT_H

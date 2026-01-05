@@ -2,9 +2,9 @@
 // Created by wojte on 17.12.2025.
 //
 #include <stdio.h>
-#include "startingFuntions.h"
+#include "starting_functions.h"
 
-void showStartPage() {
+void show_start_page() {
     printf("                                                                       ");
     printf("                                                                       ");
     printf("                                                                       ");

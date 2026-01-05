@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include "listOperations.h"
+#include "list_operations.h"
 #include <string.h>
-#include "../insertingFunctions/insertingFunctions.h"
-#include "survivorStruct.h"
+#include "../insertingFunctions/inserting_functions.h"
+#include "survivor_struct.h"
 
 
 
@@ -34,7 +34,7 @@ void add_to_file(struct Survivor *head) {
     struct Survivor *n = head;
     while (n != NULL) {
         fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", n->id, n->name, n->skill, n->rations, n->health,
-                n->stateOfHealth, n->threatLevel, n->statusOfSurvivor);
+                n->state_of_health, n->threat_level, n->status_of_survivor);
         n = n->next;
     }
 
@@ -85,7 +85,7 @@ int check_amount(struct Survivor *head) {
 int check_interval(int a, int b) {
     int tmp;
     do {
-        tmp = insertInt();
+        tmp = insert_int();
         if (tmp < a || tmp > b) {
             printf("!Value is out of range <%d-%d>!\n", a, b);
         }
@@ -118,7 +118,7 @@ struct Survivor *add_survivor(struct Survivor *head) {
     n->id = id_add++;
 
     printf("// Insert name:\n");
-    insertString(n->name);
+    insert_string(n->name);
 
     printf("// Insert their skill:\n");
     printf(" - 0: Medic\n - 1: Engineer\n - 2: Ordinary\n");
@@ -129,12 +129,12 @@ struct Survivor *add_survivor(struct Survivor *head) {
 
     printf("// Insert their health (0-100):\n");
     n->health = check_interval(0,100);
-    n->stateOfHealth = check_state_health(n->health);
+    n->state_of_health = check_state_health(n->health);
 
     printf("// Insert their threat level (0-10):\n");
-    n->threatLevel = check_interval(0,10);
+    n->threat_level = check_interval(0,10);
 
-    n->statusOfSurvivor = 0;
+    n->status_of_survivor = 0;
     n->next = NULL;
 
     return add_last(head, n);
@@ -150,27 +150,27 @@ void assign_segregate(struct Survivor* a, struct Survivor* b) {
     int tmp_skill = a->skill;
     int tmp_rations = a->rations;
     int tmp_health = a->health;
-    int tmp_state = a->stateOfHealth;
-    int tmp_threat = a->threatLevel;
-    int tmp_status = a->statusOfSurvivor;
+    int tmp_state = a->state_of_health;
+    int tmp_threat = a->threat_level;
+    int tmp_status = a->status_of_survivor;
 
     a->id = b->id;
     strcpy(a->name, b->name);
     a->skill = b->skill;
     a->rations = b->rations;
     a->health = b->health;
-    a->stateOfHealth = b->stateOfHealth;
-    a->threatLevel = b->threatLevel;
-    a->statusOfSurvivor = b->statusOfSurvivor;
+    a->state_of_health = b->state_of_health;
+    a->threat_level = b->threat_level;
+    a->status_of_survivor = b->status_of_survivor;
 
     b->id = tmp_id;
     strcpy(b->name, tmp_name);
     b->skill = tmp_skill;
     b->rations = tmp_rations;
     b->health = tmp_health;
-    b->stateOfHealth = tmp_state;
-    b->threatLevel = tmp_threat;
-    b->statusOfSurvivor = tmp_status;
+    b->state_of_health = tmp_state;
+    b->threat_level = tmp_threat;
+    b->status_of_survivor = tmp_status;
 }
 
 
@@ -208,8 +208,8 @@ void bubble_segregate(struct Survivor* head, int option, int type) {
                     assign_segregate(ptr1, ptr1->next);
                     swapped = 1;
                 }
-                //threatLevel
-                else if (option == 4 && (ptr1->threatLevel > ptr1->next->threatLevel))  {
+                //threat_level
+                else if (option == 4 && (ptr1->threat_level > ptr1->next->threat_level))  {
                     assign_segregate(ptr1, ptr1->next);
                     swapped = 1;
                 }
@@ -235,8 +235,8 @@ void bubble_segregate(struct Survivor* head, int option, int type) {
                     assign_segregate(ptr1, ptr1->next);
                     swapped = 1;
                 }
-                //threatLevel
-                else if (option == 4 && (ptr1->threatLevel < ptr1->next->threatLevel))  {
+                //threat_level
+                else if (option == 4 && (ptr1->threat_level < ptr1->next->threat_level))  {
                     assign_segregate(ptr1, ptr1->next);
                     swapped = 1;
                 }
