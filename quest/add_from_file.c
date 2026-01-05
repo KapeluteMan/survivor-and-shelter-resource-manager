@@ -24,8 +24,6 @@ struct Quest* add_quest_from_file(struct Quest* head) {
 
         head = add_quest(head, quest);
     }
-
-
-
-
+    fclose(f);
+    return head;
 }
