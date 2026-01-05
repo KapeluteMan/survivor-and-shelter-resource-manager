@@ -38,7 +38,7 @@ void short_print_list(struct Survivor *head) {
     }
 
     while (n != NULL) {
-        add_to_file(head);
+        add_one_to_file(head);
         if (n->status_of_survivor == 0) {
             char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
             printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
