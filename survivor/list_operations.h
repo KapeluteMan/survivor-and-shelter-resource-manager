@@ -12,5 +12,6 @@ void add_one_to_file(struct Survivor *to_add);
 void bubble_segregate(struct Survivor* head, int option, int type);
 void assign_segregate(struct Survivor* a, struct Survivor* b);
 int check_interval(int a, int b);
+void survivor_id_update(struct Survivor* head);
 
 #endif //UNTITLED5_LISTOPERATIONS_H
