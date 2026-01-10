@@ -7,8 +7,6 @@
 #include "survivor_struct.h"
 
 
-int id_add = 0;
-
 struct Survivor *add_last(struct Survivor *head, struct Survivor *n) {
     if (head == NULL) {
         return n;
@@ -338,8 +336,6 @@ struct Survivor *add_survivor(struct Survivor *head) {
         return head;
     }
 
-    n->id = id_add++;
-
     printf("// Insert name:\n");
     insert_string(n->name);
 
@@ -466,3 +462,20 @@ void bubble_segregate(struct Survivor *head, int option, int type) {
         lptr = ptr1;
     } while (swapped);
 }
+
+void survivor_id_update(struct Survivor* head) {
+    if (head == NULL) {
+        return;
+    }
+
+    int indeks = 1;
+    struct Survivor *n = head;
+
+    while (n != NULL) {
+        n->id = indeks;
+        indeks++;
+        n = n->next;
+    }
+
+}
+
