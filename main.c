@@ -1,6 +1,17 @@
+/**
+    *
+    *
+    *    ▄█████ ▄▄ ▄▄ ▄▄▄▄▄ ▄▄   ▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄    ██▄  ▄██  ▄▄▄  ▄▄  ▄▄  ▄▄▄   ▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄
+    *    ▀▀▀▄▄▄ ██▄██ ██▄▄  ██     ██   ██▄▄  ██▄█▄   ██ ▀▀ ██ ██▀██ ███▄██ ██▀██ ██ ▄▄ ██▄▄  ██▄█▄
+    *    █████▀ ██ ██ ██▄▄▄ ██▄▄▄  ██   ██▄▄▄ ██ ██   ██    ██ ██▀██ ██ ▀██ ██▀██ ▀███▀ ██▄▄▄ ██ ██
+    *
+    */
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
+#include "survivor/survivor_struct.h"
 #include "quest/add_from_file.h"
 #include "insertingFunctions/inserting_functions.h"
 #include "programStart/starting_functions.h"
@@ -9,18 +20,16 @@
 #include "survivor/show.h"
 
 
+
 int main() {
 
-    show_start_page();
-
-
-    struct Survivor *head = NULL;
+    Survivor *head = NULL;
     //add_to_file(head);
 
     struct Quest *q_head = NULL;
-    q_head = add_quest_from_file(q_head);
+    start_program(&head,&q_head);
+    show_title();
     int menu = 1;
-
     while (menu == 1) {
         int option = 0;
         int type = 0;
@@ -39,17 +48,25 @@ int main() {
         int wybor1 = insert_int();
         switch (wybor1) {
             case 1:
+                system("cls");
+                show_title();
                 printf("Add the survivor:\n");
                 head = add_survivor(head);
                 break;
             case 2:
+                system("cls");
+                show_title();
                 printf("Amount of survivors: %d\n", check_amount(head));
                 break;
             case 3:
+                system("cls");
+                show_title();
                 printf("List:\n");
                 print_list(head);
                 break;
             case 4:
+                system("cls");
+                show_title();
                 printf("Delete a survivor:\n");
                 printf("Available survivors (who are not on a mission):\n");
                 short_print_list(head);
@@ -57,6 +74,8 @@ int main() {
                 head = delete_by_id(head, enter_id);
                 break;
             case 5:
+                system("cls");
+                show_title();
                 printf("Choose an option: \n"
                        "0 - Sort by name\n"
                        "1 - Sort by skill\n"
@@ -71,6 +90,8 @@ int main() {
                 break;
 
             case 6:
+                system("cls");
+                show_title();
                 printf("List:\n");
                 print_quest(q_head);
                 break;
