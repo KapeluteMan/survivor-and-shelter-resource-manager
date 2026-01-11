@@ -1,25 +1,27 @@
 #include <stdio.h>
 #include <string.h>
 
-void print_single_quest(Quest *q) {
-    if (q == NULL) {
+#include "quest_struct.h"
+
+#include "show.h"
+
+
+void print_quest(Quest *head) {
+    if (head == NULL) {
+        printf("There is no quest here.\n");
         return;
     }
 
-    printf(" | Quest Length: %3d | Succession Rate: %3d%%\n",q->quest_length,q->succession_rate);
-}
+    struct Quest *n = head;
 
-
-void print_all_quests(Quest *head) {
-    Quest *n = head;
 
     printf("--- List Quests ---\n");
 
     while (n != NULL) {
-        print_single_quest(n);
+        printf(" Quest length = %d, Succession rate = %d%%\n",
+               n->quest_length, n->succession_rate);
+
         n = n->next;
     }
-
-    printf("---------------------\n");
-
+    printf("-------------------\n");
 }
