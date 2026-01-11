@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include "list_operations.h"
 #include <string.h>
+
 #include "../insertingFunctions/inserting_functions.h"
-#include "survivor_struct.h"
+#include "struct.h"
+
+#include "list_operations.h"
 
 
 int id_add = 0;

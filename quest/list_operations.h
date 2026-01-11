@@ -1,7 +1,7 @@
-#ifndef UNTITLED5_LISTOPERATIONS_H
-#define UNTITLED5_LISTOPERATIONS_H
+#ifndef QUEST_LIST_OPERATIONS_H
+#define QUEST_LIST_OPERATIONS_H
 
 
 struct Quest *add_quest(struct Quest *head, struct Quest *toAdd);
 
-#endif //UNTITLED5_LISTOPERATIONS_H
+#endif //QUEST_LIST_OPERATIONS_H

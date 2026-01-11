@@ -1,10 +1,6 @@
-//
-// Created by wojte on 17.12.2025.
-//
-
-#ifndef UNTITLED5_STARTPAGE_H
-#define UNTITLED5_STARTPAGE_H
+#ifndef START_PAGE_H
+#define START_PAGE_H
 
 void show_start_page(void);
 
-#endif //UNTITLED5_STARTPAGE_H
+#endif //START_PAGE_H

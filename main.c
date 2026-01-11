@@ -1,25 +1,24 @@
-#include "insertingFunctions/inserting_functions.h"
-#include "survivor/add_from_file.h"
-#include "survivor/list_operations.h"
-#include "survivor/show.h"
-#include "quest/add_from_file.h"
-#include "quest/list_operations.h"
-#include "quest/show.h"
-#include "programStart/starting_functions.h"
-
 #include <stdio.h>
 #include <string.h>
+
+#include "quest/add_from_file.h"
+#include "insertingFunctions/inserting_functions.h"
+#include "programStart/starting_functions.h"
+#include "survivor/list_operations.h"
+#include "quest/show.h"
+#include "survivor/show.h"
 
 
 int main() {
 
     show_start_page();
 
+
     struct Survivor *head = NULL;
     //add_to_file(head);
 
     struct Quest *q_head = NULL;
-
+    q_head = add_quest_from_file(q_head);
     int menu = 1;
 
     while (menu == 1) {

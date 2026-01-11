@@ -25,5 +25,5 @@ void show_start_page() {
     printf("                                                                       ");
     printf("                                                                       ");
     printf("                                                                       1");
-    // system("cls");
+    system("cls");
 }

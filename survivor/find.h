@@ -1,9 +1,5 @@
-//
-// Created by wojte on 30.12.2025.
-//
-
-#ifndef UNTITLED5_FIND_H
-#define UNTITLED5_FIND_H
+#ifndef SURVIVOR_FIND_H
+#define SURVIVOR_FIND_H
 
 struct Survivor *find_by_id(struct Survivor *head, int id);
 
@@ -19,4 +15,4 @@ struct Survivor *find_by_threat_level(struct Survivor *head, int threat_level,in
 
 struct Survivor *find_first_by_status(struct Survivor *head, enum status_of_survivor status);
 
-#endif //UNTITLED5_FIND_H
+#endif //SURVIVOR_FIND_H
