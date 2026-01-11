@@ -1,10 +1,11 @@
-#include "survivor_struct.h"
-#include "list_operations.h"
-
-#include "find.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "struct.h"
+#include "list_operations.h"
+
+#include "find.h"
 
 //zwraca wakżnik na znaleziony element (niepowtarzalny id)
 struct Survivor *find_by_id(struct Survivor *head, const int id) {

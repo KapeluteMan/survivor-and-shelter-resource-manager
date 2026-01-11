@@ -1,9 +1,10 @@
-#include "survivor_struct.h"
-
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 
-void copy_survivor(struct Survivor* from, struct Survivor* to) {
+#include "struct.h"
+
+
+void copy_survivor(const struct Survivor* from, struct Survivor* to) {
     to->id = from ->id;
     strcpy(to->name,from->name);
     to->skill = from ->skill;

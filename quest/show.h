@@ -1,11 +1,6 @@
-#ifndef UNTITLED5_SHOW_H
-#define UNTITLED5_SHOW_H
-#include "quest_struct.h"
+#ifndef QUEST_SHOW_H
+#define QUEST_SHOW_H
 
-void print_quest(struct Quest* head);
+void print_quest(struct Quest *head);
 
-
-
-
-
-#endif //UNTITLED5_SHOW_H
+#endif //QUEST_SHOW_H

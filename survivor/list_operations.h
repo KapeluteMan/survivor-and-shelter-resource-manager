@@ -1,5 +1,5 @@
-#ifndef UNTITLED5_LISTOPERATIONS_H
-#define UNTITLED5_LISTOPERATIONS_H
+#ifndef SURVIVOR_LIST_OPERATIONS_H
+#define SURVIVOR_LIST_OPERATIONS_H
 
 struct Survivor* add_survivor(struct Survivor* head);
 int check_state_health(int value);
@@ -14,4 +14,4 @@ void assign_segregate(struct Survivor* a, struct Survivor* b);
 int check_interval(int a, int b);
 void survivor_id_update(struct Survivor* head);
 
-#endif //UNTITLED5_LISTOPERATIONS_H
+#endif //SURVIVOR_LIST_OPERATIONS_H

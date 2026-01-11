@@ -1,10 +1,11 @@
-#include "add_from_file.h"
-#include "survivor_struct.h"
-#include "list_operations.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "struct.h"
+#include "list_operations.h"
+
+#include "add_from_file.h"
 
 
 struct Survivor* add_survivors_from_file(){

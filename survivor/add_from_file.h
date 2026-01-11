@@ -1,6 +1,6 @@
-#ifndef UNTITLED5_ADDFROMFILE_H
-#define UNTITLED5_ADDFROMFILE_H
+#ifndef SURVIVOR_ADD_FROM_FILE_H
+#define SURVIVOR_ADD_FROM_FILE_H
 
 struct Survivor* add_survivors_from_file();
 
-#endif //UNTITLED5_ADDFROMFILE_H
+#endif //SURVIVOR_ADD_FROM_FILE_H
