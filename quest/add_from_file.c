@@ -1,6 +1,3 @@
-//
-// Created by wojte on 21.12.2025.
-//
 #include "add_from_file.h"
 #include "quest_struct.h"
 #include "list_operations.h"

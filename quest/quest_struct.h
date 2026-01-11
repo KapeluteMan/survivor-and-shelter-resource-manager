@@ -1,7 +1,3 @@
-//
-// Created by wojte on 27.12.2025.
-//
-
 #ifndef UNTITLED5_QUESTSTRUCT_H
 #define UNTITLED5_QUESTSTRUCT_H
 

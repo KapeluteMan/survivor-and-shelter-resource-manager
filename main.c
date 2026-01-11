@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-// #include "startPage/startPage.h"
 #include "insertingFunctions/inserting_functions.h"
 #include "survivor/add_from_file.h"
 #include "survivor/list_operations.h"
@@ -8,10 +5,16 @@
 #include "quest/add_from_file.h"
 #include "quest/list_operations.h"
 #include "quest/show.h"
+#include "programStart/starting_functions.h"
 
+#include <stdio.h>
+#include <string.h>
 
 
 int main() {
+
+    show_start_page();
+
     struct Survivor *head = NULL;
     //add_to_file(head);
 
@@ -22,7 +25,7 @@ int main() {
     while (menu == 1) {
         int option = 0;
         int type = 0;
-        add_one_to_file(head);
+        // add_one_to_file(head);
         printf(
             "Select an option:\n"
             " 1 - Add the survivor\n"
@@ -71,7 +74,6 @@ int main() {
             case 6:
                 printf("List:\n");
                 print_quest(q_head);
-
                 break;
             case 7:
                 menu = 0;
