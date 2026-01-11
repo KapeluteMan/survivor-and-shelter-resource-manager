@@ -8,21 +8,22 @@
 #include "quest/add_from_file.h"
 #include "quest/list_operations.h"
 #include "quest/show.h"
+#include "quest/show.h"
 
 
 
 int main() {
     struct Survivor *head = NULL;
     //add_to_file(head);
-
     struct Quest *q_head = NULL;
+
 
     int menu = 1;
 
     while (menu == 1) {
         int option = 0;
         int type = 0;
-        add_one_to_file(head);
+       // add_one_to_file(head);
         printf(
             "Select an option:\n"
             " 1 - Add the survivor\n"
@@ -69,8 +70,8 @@ int main() {
                 break;
 
             case 6:
-                printf("List:\n");
-                print_quest(q_head);
+                q_head = add_quest_from_file(q_head);
+                print_all_quests(q_head);
 
                 break;
             case 7:

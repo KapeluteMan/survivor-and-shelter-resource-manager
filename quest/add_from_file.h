@@ -4,7 +4,8 @@
 
 #ifndef UNTITLED5_ADDFROMFILE_H
 #define UNTITLED5_ADDFROMFILE_H
+#include "quest_struct.h"
 
-struct Quest* add_quest_from_file(struct Quest* head);
+struct  Quest* add_quest_from_file(struct  Quest* head);
 
 #endif //UNTITLED5_ADDFROMFILE_H

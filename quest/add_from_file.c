@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 struct Quest* add_quest_from_file(struct Quest* head) {
-    FILE *f = fopen("quests.txt", "r");
+    FILE *f = fopen("../files/quests.txt", "r");
     if (!f) {
         printf("Error opening file - quests.txt");
         return head;
