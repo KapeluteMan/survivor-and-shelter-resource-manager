@@ -16,7 +16,6 @@ int main() {
 
     struct Survivor *head = NULL;
     //add_to_file(head);
-
     struct Quest *q_head = NULL;
     q_head = add_quest_from_file(q_head);
     int menu = 1;

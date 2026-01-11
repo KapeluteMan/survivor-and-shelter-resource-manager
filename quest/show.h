@@ -1,6 +1,8 @@
 #ifndef QUEST_SHOW_H
 #define QUEST_SHOW_H
 
-void print_quest(struct Quest *head);
+void print_all_quests(Quest *head);
 
-#endif //QUEST_SHOW_H
+
+
+#endif //UNTITLED5_SHOW_H
