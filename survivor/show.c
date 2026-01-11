@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+
 #include "list_operations.h"
-#include "survivor_struct.h"
+
+#include "struct.h"
 
 
 void print_list(struct Survivor *head) {

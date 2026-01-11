@@ -1,9 +1,5 @@
-//
-// Created by wojte on 27.12.2025.
-//
-
-#ifndef UNTITLED5_SURVIVORSTRUCT_H
-#define UNTITLED5_SURVIVORSTRUCT_H
+#ifndef SURVIVOR_STRUCT_H
+#define SURVIVOR_STRUCT_H
 
 enum specialist_skill {
     MEDIC,
@@ -34,6 +30,6 @@ typedef struct Survivor {
     struct Survivor* next;
 }Survivor;
 
-void copy_survivor(struct Survivor* from, struct Survivor* to);
+void copy_survivor(const struct Survivor* from, struct Survivor* to);
 
-#endif //UNTITLED5_SURVIVORSTRUCT_H
+#endif //SURVIVOR_STRUCT_H

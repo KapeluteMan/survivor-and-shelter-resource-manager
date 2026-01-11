@@ -1,5 +1,5 @@
-#ifndef INSERTINGFUNCTIONS_H
-#define INSERTINGFUNCTIONS_H
+#ifndef INSERTING_FUNCTIONS_H
+#define INSERTING_FUNCTIONS_H
 
 int insert_int();
 void insert_string(char* text);

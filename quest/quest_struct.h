@@ -1,9 +1,5 @@
-//
-// Created by wojte on 27.12.2025.
-//
-
-#ifndef UNTITLED5_QUESTSTRUCT_H
-#define UNTITLED5_QUESTSTRUCT_H
+#ifndef QUEST_STRUCT_H
+#define QUEST_STRUCT_H
 
 typedef struct Quest {
     int quest_length;
@@ -12,4 +8,4 @@ typedef struct Quest {
     struct Quest *next;
 }Quest;
 
-#endif //UNTITLED5_QUESTSTRUCT_H
+#endif //QUEST_STRUCT_H

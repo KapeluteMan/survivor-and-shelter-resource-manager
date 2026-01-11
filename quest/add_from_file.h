@@ -1,11 +1,6 @@
-//
-// Created by wojte on 21.12.2025.
-//
-
-#ifndef UNTITLED5_ADDFROMFILE_H
-#define UNTITLED5_ADDFROMFILE_H
-#include "quest_struct.h"
+#ifndef QUEST_ADD_FROM_FILE_H
+#define QUEST_ADD_FROM_FILE_H
 
 struct  Quest* add_quest_from_file(struct  Quest* head);
 
-#endif //UNTITLED5_ADDFROMFILE_H
+#endif //QUEST_ADDFROMFILE_H

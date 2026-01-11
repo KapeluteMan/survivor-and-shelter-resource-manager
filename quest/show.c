@@ -1,5 +1,3 @@
-#include "show.h"
-#include "quest_struct.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -25,6 +23,3 @@ void print_all_quests(Quest *head) {
     printf("---------------------\n");
 
 }
-
-
-

@@ -1,8 +1,10 @@
-#include "list_operations.h"
-#include "quest_struct.h"
 #include <stdio.h>
 
-struct Quest* add_quest(struct Quest* head, struct Quest* toAdd) {
+#include "quest_struct.h"
+
+#include "list_operations.h"
+
+Quest* add_quest(Quest* head, Quest* toAdd) {
     if (head==NULL) {
         return toAdd;
     }

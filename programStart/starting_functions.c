@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "starting_functions.h"
 
+#include <stdlib.h>
+
 void show_start_page() {
     printf("                                                                       ");
     printf("                                                                       ");
@@ -23,4 +25,5 @@ void show_start_page() {
     printf("                                                                       ");
     printf("                                                                       ");
     printf("                                                                       1");
+    system("cls");
 }
