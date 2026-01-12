@@ -16,9 +16,9 @@ void print_list(struct Survivor *head) {
     }
 
     while (n != NULL) {
-        char classes_tab[3][10] = {"Medic", "Engineer", "Ordinary"};
-        char state_of_health_tab[2][10] = {"Healthy", "Weaken"};
-        char status_tab[2][10] = {"Waiting", "On Mission"};
+        char classes_tab[4][10] = {"Medic", "Engineer", "Hunter", "Ordinary"};
+        char state_of_health_tab[4][10] = {"Healthy", "Weaken", "Sick", "Dying"};
+        char status_tab[5][11] = {"Waiting", "Wounded", "On Mission", "Missing", "Dead"};
         printf("Id: %d\n", n->id);
         printf("Name: %s\n", n->name);
         printf("Class: %s\n", classes_tab[n->skill]);
@@ -40,11 +40,10 @@ void short_print_list(struct Survivor *head) {
     }
 
     while (n != NULL) {
-        add_one_to_file(head);
         if (n->status_of_survivor == 0) {
-            char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
+            char state_of_health_tab[4][10] = {"Healthy", "Weaken", "Sick", "Dying"};
             printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
-                   stateofhealth_tab[n->state_of_health], n->threat_level);
+                   state_of_health_tab[n->state_of_health], n->threat_level);
         }
 
         n = n->next;

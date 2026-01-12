@@ -4,18 +4,23 @@
 enum specialist_skill {
     MEDIC,
     ENGINEER,
+    HUNTER,
     ORDINARY
 };
 
 enum state_of_health {
-    HEALTHY,
-    WEAKEN
+    HEALTHY, //100-80
+    WEAKEN, //79-50
+    SICK, //49-20
+    DYING //19-0
 };
 
 enum status_of_survivor {
     WAITING,
+    WOUNDED,
     ON_MISSION,
-    MISSING
+    MISSING,
+    DEAD
 };
 
 typedef struct Survivor {

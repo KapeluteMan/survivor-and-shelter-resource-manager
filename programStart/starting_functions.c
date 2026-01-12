@@ -3,17 +3,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "../quest/quest_struct.h"
 #include "../quest/add_from_file.h"
 #include "../quest/list_operations.h"
 
-#include "../survivor/add_from_file.h"
+#include "../survivor/file_operations.h"
 #include "../survivor/survivor_struct.h"
 #include "../survivor/list_operations.h"
 
 
-#include "../insertingFunctions/inserting_functions.h"
+#include "../logicFunctions/logic_functions.h"
 
 #include "starting_functions.h"
 
@@ -108,6 +109,21 @@ void loading_for(char text[130], bool success) {
 
 }
 
+void save_time() {
+    FILE *f = fopen("../files/graveyard.txt", "a");
+    if (!f) {
+        perror("Error opening survivor.txt");
+        return;
+    }
+    time_t time_to_save;
+    time(&time_to_save);
+    char formated_time[80];
+    struct tm *local_time = localtime(&time_to_save);
+    strftime(formated_time, sizeof(formated_time), "%d/%m/%Y %H:%M:%S", local_time);
+    fprintf(f,"Start of session: %s\n",formated_time);
+    fclose(f);
+}
+
 Survivor* load_survivors(Survivor *head) {
     Survivor* new_survivor = NULL;
     new_survivor = calloc(1,sizeof(Survivor));
@@ -130,6 +146,7 @@ Quest* load_quests(Quest *head) {
 
 
 void start_program(Survivor** survivor_head, Quest** quest_head) {
+    save_time();
     show_title();
     loading_for("Building shelter",true);
     loading_for("Gathering rations",true);

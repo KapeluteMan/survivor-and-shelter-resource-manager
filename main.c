@@ -13,11 +13,12 @@
 
 #include "survivor/survivor_struct.h"
 #include "quest/add_from_file.h"
-#include "insertingFunctions/inserting_functions.h"
+#include "logicFunctions/logic_functions.h"
 #include "programStart/starting_functions.h"
 #include "survivor/list_operations.h"
 #include "quest/show.h"
 #include "survivor/show.h"
+#include "survivor/file_operations.h"
 
 
 
@@ -29,7 +30,10 @@ int main() {
     struct Quest *q_head = NULL;
     start_program(&head,&q_head);
     show_title();
+    survivor_id_update(head);
     int menu = 1;
+    add_all_to_file(head);
+    survivor_health_status_change(head);
     while (menu == 1) {
         int option = 0;
         int type = 0;
