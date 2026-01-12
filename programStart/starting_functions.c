@@ -66,7 +66,7 @@ void show_title() {
 void loading_for(char text[130], bool success) {
     system("cls");
     show_title();
-    int pom= 400;
+    const int pom= 300;
     int length = strlen(text);
     spaces(length);
     printf("%s [........]\r",text);
@@ -94,7 +94,7 @@ void loading_for(char text[130], bool success) {
     _sleep(pom);
     spaces(length);
     printf("%s [********]\r",text);
-    _sleep(pom);
+    _sleep(pom+300);
     if (success==true) {
         spaces(length);
         printf("%s  success            \r",text);
