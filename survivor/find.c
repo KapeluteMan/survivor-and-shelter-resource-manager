@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "struct.h"
+#include "survivor_struct.h"
 #include "list_operations.h"
 
 #include "find.h"

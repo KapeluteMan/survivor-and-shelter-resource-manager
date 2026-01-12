@@ -6,13 +6,14 @@
 
 #include "add_from_file.h"
 
-Quest* add_quest_from_file(Quest* head) {
+Quest* add_quest_from_file() {
     FILE *f = fopen("../files/quests.txt","r");
     if (!f) {
-        printf("Error opening file - quests.txt");
-        return head;
+        // printf("Error opening file - quests.txt");
+        return NULL;
     }
 
+    Quest* head=NULL;
     int length =0;
     int success = 0;
     while (fscanf(f ,"%d %d", &length, &success)==2) {
@@ -22,7 +23,6 @@ Quest* add_quest_from_file(Quest* head) {
         quest->succession_rate = success;
 
         head = add_quest(head, quest);
-        printf("Odrzytano\n");
     }
     fclose(f);
     return head;

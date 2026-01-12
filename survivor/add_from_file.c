@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "struct.h"
+#include "survivor_struct.h"
 #include "list_operations.h"
 
 #include "add_from_file.h"
@@ -11,7 +11,7 @@
 struct Survivor* add_survivors_from_file(){
     FILE *f = fopen("../files/survivors.txt","r");
     if (!f) {
-        perror("Error opening survivor.txt");
+        // perror("Error opening survivor.txt");
         return NULL;
     }
 
@@ -32,7 +32,7 @@ struct Survivor* add_survivors_from_file(){
             pom->state_of_health=WEAKEN;
         }
         pom->next = NULL;
-        add_last(head,pom);
+        head = add_last(head,pom);
     }
     fclose(f);
     return head;

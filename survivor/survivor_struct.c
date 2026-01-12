@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "struct.h"
+#include "survivor_struct.h"
 
 
 void copy_survivor(const struct Survivor* from, struct Survivor* to) {

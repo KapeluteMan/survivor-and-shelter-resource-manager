@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "../insertingFunctions/inserting_functions.h"
-#include "struct.h"
+#include "survivor_struct.h"
 
 #include "list_operations.h"
 

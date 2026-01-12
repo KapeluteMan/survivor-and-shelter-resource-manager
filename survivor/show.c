@@ -4,7 +4,7 @@
 
 #include "list_operations.h"
 
-#include "struct.h"
+#include "survivor_struct.h"
 
 
 void print_list(struct Survivor *head) {
@@ -17,14 +17,14 @@ void print_list(struct Survivor *head) {
 
     while (n != NULL) {
         char classes_tab[3][10] = {"Medic", "Engineer", "Ordinary"};
-        char stateofhealth_tab[2][10] = {"Healthy", "Weaken"};
+        char state_of_health_tab[2][10] = {"Healthy", "Weaken"};
         char status_tab[2][10] = {"Waiting", "On Mission"};
         printf("Id: %d\n", n->id);
         printf("Name: %s\n", n->name);
         printf("Class: %s\n", classes_tab[n->skill]);
         printf("Demand for rations: %d\n", n->rations);
         printf("Health: %d\n", n->health);
-        printf("State of health: %s\n", stateofhealth_tab[n->state_of_health]);
+        printf("State of health: %s\n", state_of_health_tab[n->state_of_health]);
         printf("Status: %s\n", status_tab[n->status_of_survivor]);
         printf("Threat level: %d\n----------------------\n\n", n->threat_level);
         n = n->next;
