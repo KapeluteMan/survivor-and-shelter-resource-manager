@@ -13,7 +13,6 @@
 #include "../survivor/survivor_struct.h"
 #include "../survivor/list_operations.h"
 
-
 #include "../logicFunctions/logic_functions.h"
 
 #include "starting_functions.h"
@@ -153,11 +152,7 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     printf("Do you want to enter survivors manually?\n");
     printf("0 - NO\n");
     printf("1 - YES\n");
-    int answer = insert_int();
-    while (answer != 1 && answer !=0) {
-        printf("Enter again\n");
-        answer = insert_int();
-    }
+    int answer = check_interval(0,1);
     if (answer == 0) {
         *survivor_head = add_survivors_from_file();
         if (*survivor_head!=NULL) {
