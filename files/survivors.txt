@@ -1,2 +1,2 @@
 Witold 0 85 3
-Maurycy 4 50 10
+Maurycy 3 50 10

@@ -5,7 +5,7 @@
 #include "survivor_struct.h"
 #include "list_operations.h"
 
-#include "add_from_file.h"
+#include "file_operations.h"
 
 
 struct Survivor* add_survivors_from_file(){
@@ -36,4 +36,35 @@ struct Survivor* add_survivors_from_file(){
     }
     fclose(f);
     return head;
+}
+
+void add_all_to_file(Survivor *head) {
+    FILE *f = fopen("../files/graveyard.txt", "a");
+    if (!f) {
+        perror("Error opening survivor.txt");
+        return;
+    }
+
+    Survivor *n = head;
+    while (n != NULL) {
+        fprintf(f, "%s %d %d %d %d %d %d\n", n->name, n->skill, n->rations, n->health,
+                n->state_of_health, n->threat_level, n->status_of_survivor);
+        n = n->next;
+    }
+
+    fclose(f);
+}
+
+void add_one_to_file(Survivor *to_add) {
+    FILE *f = fopen("../files/graveyard.txt", "a");
+    if (!f) {
+        perror("Error opening graveyard.txt");
+        return;
+    }
+
+    fprintf(f, "%s %d %d %d %d %d %d\n", to_add->name, to_add->skill, to_add->rations,
+            to_add->health,
+            to_add->state_of_health, to_add->threat_level, to_add->status_of_survivor);
+
+    fclose(f);
 }

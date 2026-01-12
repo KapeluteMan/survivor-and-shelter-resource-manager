@@ -3,325 +3,24 @@
 #include <conio.h>
 #include <string.h>
 
-#include "../insertingFunctions/inserting_functions.h"
+#include "../logicFunctions/logic_functions.h"
 #include "survivor_struct.h"
+#include "file_operations.h"
 
 #include "list_operations.h"
 
 
-struct Survivor *add_last(struct Survivor *head, struct Survivor *n) {
+Survivor *add_last(Survivor *head, Survivor *n) {
     if (head == NULL) {
         return n;
     }
 
-    struct Survivor *tmp = head;
+    Survivor *tmp = head;
     while (tmp->next != NULL) {
         tmp = tmp->next;
     }
     tmp->next = n;
     return head;
-}
-
-
-void add_all_to_file(struct Survivor *head) {
-    FILE *f = fopen("graveyard.txt", "w");
-    if (!f) {
-        perror("Error opening survivor.txt");
-        return;
-    }
-
-    struct Survivor *n = head;
-    while (n != NULL) {
-        fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", n->id, n->name, n->skill, n->rations, n->health,
-                n->state_of_health, n->threat_level, n->status_of_survivor);
-        n = n->next;
-    }
-
-    fclose(f);
-}
-
-void add_one_to_file(struct Survivor *to_add) {
-    FILE *f = fopen("graveyard.txt", "w");
-    if (!f) {
-        perror("Error opening graveyard.txt");
-        return;
-    }
-
-    fprintf(f, "%d\n%s\n%d\n%d\n%d\n%d\n%d\n%d\n", to_add->id, to_add->name, to_add->skill, to_add->rations,
-            to_add->health,
-            to_add->state_of_health, to_add->threat_level, to_add->status_of_survivor);
-
-    fclose(f);
-}
-
-struct Survivor *delete_by_id(struct Survivor *head, int id) {
-    if (head == NULL) {
-        return head;
-    }
-
-    if (head->id == id) {
-        if (head->status_of_survivor==MISSING || head-> status_of_survivor==ON_MISSION) {
-            printf("Nie możesz usunąć tego surviviora\n");
-            return head;
-        }
-        struct Survivor *new_head = head->next;
-        add_one_to_file(head);
-        free(head);
-        head = new_head;
-        return head;
-    }
-
-    struct Survivor *prev = head;
-    struct Survivor *curr = head->next;
-
-    while (curr != NULL) {
-        if (curr->id == id) {
-            if (curr->status_of_survivor==MISSING || curr-> status_of_survivor==ON_MISSION) {
-                printf("Nie możesz usunąć tego surviviora\n");
-                return head;
-            }
-            prev->next = curr->next;
-            add_one_to_file(curr);
-            free(curr);
-            return head;
-        }
-
-        prev = curr;
-        curr = curr->next;
-    }
-    printf("//A survivor not found\n");
-    return head;
-}
-
-struct Survivor *delete_by_name(struct Survivor *head, char name[100]) {
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            if (strncmp(name,next->name,strlen(name))==0) {
-                to_delete[pom]=next->id;
-                pom++;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-
-void free_list(struct Survivor *head) {
-    struct Survivor *next = NULL;
-    while (head != NULL) {
-        next = head->next;
-        free(head);
-        head = next;
-    }
-    head = NULL;
-}
-
-struct Survivor *delete_by_skill(struct Survivor *head, enum specialist_skill skill) {
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            if (skill == next->skill) {
-                to_delete[pom]=next->id;
-                pom++;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
-struct Survivor *delete_by_rations(struct Survivor *head, int const rations, int const mode) {
-    struct Survivor *new_head = NULL;
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            switch (mode) {
-                case 1:
-                    if (rations == next->rations) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 2:
-                    if (rations>next->rations) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 3:
-                    if (rations<next->rations) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                default:
-                    printf("Wrong mode\n");
-                    break;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-
-// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
-struct Survivor *delete_by_health(struct Survivor *head, int const health, int const mode) {
-    struct Survivor *new_head = NULL;
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            switch (mode) {
-                case 1:
-                    if (health == next->health) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 2:
-                    if (health>next->health) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 3:
-                    if (health<next->health) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                default:
-                    printf("Wrong mode\n");
-                    break;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-
-struct Survivor *delete_by_state_of_health(struct Survivor *head, enum state_of_health state_of_health) {
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            if (state_of_health == next->state_of_health) {
-                to_delete[pom]=next->id;
-                pom++;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-
-// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
-struct Survivor *delete_by_threat_level(struct Survivor *head, int const threat_level, int const mode) {
-    struct Survivor *new_head = NULL;
-    struct Survivor *next = head;
-    int to_delete[20]={0};
-    int pom=0;
-
-    while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
-            switch (mode) {
-                case 1:
-                    if (threat_level == next->threat_level) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 2:
-                    if (threat_level>next->threat_level) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                case 3:
-                    if (threat_level<next->threat_level) {
-                        to_delete[pom]=next->id;
-                        pom++;
-                    }
-                    break;
-                default:
-                    printf("Wrong mode\n");
-                    break;
-            }
-        }
-        next=head->next;
-    }
-
-    for (int i=0;i<pom;i++) {
-        head = delete_by_id(head, to_delete[i]);
-    }
-
-    return head;
-}
-
-int check_amount(struct Survivor *head) {
-    struct Survivor *n = head;
-    int i = 0;
-
-    while (n != NULL) {
-        i++;
-        n = n->next;
-    }
-    return i;
-}
-
-int check_interval(int a, int b) {
-    int tmp;
-    do {
-        tmp = insert_int();
-        if (tmp < a || tmp > b) {
-            printf("!Value is out of range <%d-%d>!\n", a, b);
-        }
-    } while (tmp < a || tmp > b);
-
-    return tmp;
-}
-
-int check_state_health(int value) {
-    if (value >= 70) {
-        return 0;
-    }
-    return 1;
 }
 
 struct Survivor *add_survivor(struct Survivor *head) {
@@ -359,6 +58,49 @@ struct Survivor *add_survivor(struct Survivor *head) {
     n->next = NULL;
 
     return add_last(head, n);
+}
+
+int check_amount(Survivor *head) {
+    Survivor *n = head;
+    int i = 0;
+
+    while (n != NULL) {
+        i++;
+        n = n->next;
+    }
+    return i;
+}
+
+int check_state_health(int value) {
+    if (value >= 70) {
+        return 0;
+    }
+    return 1;
+}
+
+void survivor_health_status_change(Survivor* head) {
+    if (head==NULL) {
+        return;
+    }
+
+    Survivor *n = head;
+    while (n!=NULL) {
+        if (n->health>79) {
+            n->state_of_health=HEALTHY;
+        } else {
+            if (n->health>49) {
+                n->state_of_health=WEAKEN;
+            } else {
+                if (n->health>19) {
+                    n->state_of_health=SICK;
+                } else {
+                    n->state_of_health=DYING;
+                }
+            }
+        }
+
+        n = n->next;
+    }
 }
 
 void assign_segregate(struct Survivor *a, struct Survivor *b) {
@@ -465,13 +207,13 @@ void bubble_segregate(struct Survivor *head, int option, int type) {
     } while (swapped);
 }
 
-void survivor_id_update(struct Survivor* head) {
+void survivor_id_update(Survivor* head) {
     if (head == NULL) {
         return;
     }
 
     int indeks = 1;
-    struct Survivor *n = head;
+    Survivor *n = head;
 
     while (n != NULL) {
         n->id = indeks;
@@ -479,5 +221,254 @@ void survivor_id_update(struct Survivor* head) {
         n = n->next;
     }
 
+}
+
+Survivor *delete_by_id(Survivor *head, int id) {
+    if (head == NULL) {
+        return head;
+    }
+
+    if (head->id == id) {
+        if (head->status_of_survivor==MISSING || head-> status_of_survivor==ON_MISSION) {
+            printf("Nie możesz usunąć surviviora o nazwie : %s\n",head->name);
+            return head;
+        }
+        Survivor *new_head = head->next;
+        add_one_to_file(head);
+        free(head);
+        head = new_head;
+        return head;
+    }
+
+    Survivor *prev = head;
+    Survivor *curr = head->next;
+
+    while (curr != NULL) {
+        if (curr->id == id) {
+            if (curr->status_of_survivor==MISSING || curr-> status_of_survivor==ON_MISSION) {
+                printf("Nie możesz usunąć surviviora o nazwie : %s\n",curr->name);
+                return head;
+            }
+            prev->next = curr->next;
+            add_one_to_file(curr);
+            free(curr);
+            return head;
+        }
+
+        prev = curr;
+        curr = curr->next;
+    }
+    printf("//A survivor not found\n");
+    return head;
+}
+
+// 0 - dokładny, 1 - perix
+Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
+    Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            if (mode == 0) {
+                if (strcmp(name,next->name)==0) {
+                    to_delete[pom]=next->id;
+                    break;
+                }
+            } else {
+                if (strncmp(name,next->name,strlen(name))==0) {
+                    to_delete[pom]=next->id;
+                    pom++;
+                }
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
+    struct Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            if (skill == next->skill) {
+                to_delete[pom]=next->id;
+                pom++;
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
+
+Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
+    Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            switch (mode) {
+                case 1:
+                    if (rations == next->rations) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 2:
+                    if (rations>next->rations) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 3:
+                    if (rations<next->rations) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                default:
+                    printf("Wrong mode\n");
+                    break;
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
+
+Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
+    Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            switch (mode) {
+                case 1:
+                    if (health == next->health) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 2:
+                    if (health>next->health) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 3:
+                    if (health<next->health) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                default:
+                    printf("Wrong mode\n");
+                    break;
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_of_health) {
+    Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            if (state_of_health == next->state_of_health) {
+                to_delete[pom]=next->id;
+                pom++;
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+// 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
+
+Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int const mode) {
+    Survivor *next = head;
+    int to_delete[20]={0};
+    int pom=0;
+
+    while (next != NULL) {
+        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+            switch (mode) {
+                case 1:
+                    if (threat_level == next->threat_level) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 2:
+                    if (threat_level>next->threat_level) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                case 3:
+                    if (threat_level<next->threat_level) {
+                        to_delete[pom]=next->id;
+                        pom++;
+                    }
+                    break;
+                default:
+                    printf("Wrong mode\n");
+                    break;
+            }
+        }
+        next=next->next;
+    }
+
+    for (int i=0;i<pom;i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+
+    return head;
+}
+
+void free_list(Survivor *head) {
+    Survivor *next = NULL;
+    while (head != NULL) {
+        next = head->next;
+        free(head);
+        head = next;
+    }
+    head = NULL;
 }
 

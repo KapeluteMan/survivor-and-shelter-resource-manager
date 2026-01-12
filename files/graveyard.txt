@@ -1,0 +1,15 @@
+Start of session: 12/01/2026 09:17:09
+Witold 0 0 85 0 3 0
+Maurycy 4 0 50 1 10 0
+Start of session: 12/01/2026 09:27:25
+Witold 0 0 85 0 3 0
+Maurycy 4 0 50 1 10 0
+Start of session: 12/01/2026 09:54:13
+Witold 0 0 85 0 3 0
+Maurycy 4 0 50 1 10 0
+Start of session: 12/01/2026 09:57:04
+Witold 0 0 85 0 3 0
+Maurycy 3 0 50 1 10 0
+Start of session: 12/01/2026 10:38:47
+Witold 0 0 85 0 3 0
+Maurycy 3 0 50 1 10 0
