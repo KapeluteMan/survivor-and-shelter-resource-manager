@@ -6,6 +6,7 @@
 #include "../logicFunctions/logic_functions.h"
 #include "survivor_struct.h"
 #include "file_operations.h"
+#include "find.h"
 
 #include "list_operations.h"
 
@@ -38,7 +39,17 @@ struct Survivor *add_survivor(struct Survivor *head) {
     }
 
     printf("// Insert name:\n");
-    insert_string(n->name);
+    char text[100];
+    insert_string(text);
+    while (getchar()!='\n') {}
+    Survivor* potential_survivor = find_by_name(head,text);
+    while (potential_survivor!=NULL) {
+        printf("There is survivor of that name, enter different one\n");
+        insert_string(text);
+        while (getchar()!='\n') {}
+        potential_survivor = find_by_name(head,text);
+    }
+    strcpy(n->name,text);
 
     printf("// Insert their skill:\n");
     printf(" - 0: Medic\n - 1: Engineer\n - 2: Ordinary\n");
