@@ -40,10 +40,10 @@ void short_print_list(struct Survivor *head) {
     }
 
     while (n != NULL) {
-        if (n->status_of_survivor == 0) {
-            char state_of_health_tab[4][10] = {"Healthy", "Weaken", "Sick", "Dying"};
-            printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
-                   state_of_health_tab[n->state_of_health], n->threat_level);
+
+        char state_of_health_tab[4][10] = {"Healthy", "Weaken", "Sick", "Dying"};
+        printf("/ %d / %s / State of Health: %s / Threat level: %d /\n", n->id, n->name,
+        state_of_health_tab[n->state_of_health], n->threat_level);
         }
 
         n = n->next;
