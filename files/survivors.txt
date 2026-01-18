@@ -1,2 +1,20 @@
-Witold 0 85 3
-Maurycy 3 50 10
+Witold 0 85 3 3
+Maurycy 3 50 10 6
+Amadeo 1 60 2 2
+Salih 2 100 5 1
+Benjamin 3 45 1 3
+Kato 1 40 2 8
+Nastia 0 95 5 3
+Miray 0 37 3 5
+Olaya 0 29 6 6
+Ihnat 2 67 7 2
+Amelia 3 49 9 7
+Nasim 3 93 9 3
+Mehmet 1 58 2 1
+Pio 1 75 1 2
+Aimee 2 79 5 7
+Murad 3 63 3 2
+Timofej 0 32 6 6
+Aron 1 78 5 9
+Sefora 2 93 8 11
+Tomasz 3 47 3 3

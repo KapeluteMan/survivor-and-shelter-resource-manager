@@ -152,6 +152,7 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     show_title();
     loading_for("Building shelter",true);
     loading_for("Gathering rations",true);
+    show_title();
     printf("Do you want to enter survivors manually?\n");
     printf("0 - NO\n");
     printf("1 - YES\n");
