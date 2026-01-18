@@ -17,7 +17,7 @@
 
 #include "../survivor/find.h"
 
-void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest *quest_in_progress) {
+void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
     printf("Available misson:\n");
     print_quest(rand_quest);
@@ -32,7 +32,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
         struct Quest *mission_to_add = copy_quest(rand_quest);
         //przypusanie survivor do quest
-        add_quest(quest_in_progress,mission_to_add);
+        *quest_in_progress = add_quest(*quest_in_progress,mission_to_add);
     }
 }
 
