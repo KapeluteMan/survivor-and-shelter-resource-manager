@@ -38,12 +38,43 @@ Quest *random_quest(Quest *head) {
     return copy_quest(curr);
 }
 
+int calc_chance_of_success(struct Survivor* survivor) {
+    int ch = 50;
+    switch (survivor->state_of_health) {
+        case 0:
+            ch *=3;
+            break;
+        case 1:
+            ch*=2;
+            break;
+        case 2:
+            ch*=1;
+            break;
+        case 3:
+            ch/=4;
+            break;
+    }
+
+    if (survivor->status_of_survivor==WOUNDED) {
+        ch=ch*2/3;
+    }
+
+    if (survivor->skill!=ORDINARY) {
+        ch=ch*2;
+    }
+
+    ch = ch / survivor->threat_level;
+
+    return ch;
+}
+
 void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *rations) {
     if (rand() % 10 == 0) {
         printf("Survivor %s did not return to shelter",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=MISSING;
     } else {
-        if (/*wzór na sukcess*/1 > finished_quest->succession_rate) { //czy misja się powiodła
+
+        if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
             *rations += 5; //okraślana na podstawie trudności????
         }
         struct Survivor *next = head;
