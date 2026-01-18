@@ -341,7 +341,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                "------------------------------\n");
 
         printf("\nChoose your option: \n");
-        int wybor = check_interval(0, 2);
+        int wybor = check_interval(0, 3);
 
         switch (wybor) {
             case 1:
