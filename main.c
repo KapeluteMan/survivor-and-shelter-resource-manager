@@ -39,7 +39,8 @@ int main() {
     add_all_to_file(head);
     survivor_health_status_change(head);
     while (menu == 1) {
-        survivor_menu(&head);
+        main_menu(&head);
+        break;
     }
 
 

@@ -16,6 +16,8 @@
 #include "main_menu.h"
 
 #include "../survivor/find.h"
+#include "../survivor/file_operations.h"
+#include "starting_functions.h"
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
@@ -244,6 +246,104 @@ void survivor_menu(struct Survivor **head) {
             case 0:
                 printf("\nExiting S.M.A.R.T.\n");
                 menu = 0;
+            default:
+                printf("Sorry, you selected an invalid option.\n");
+        }
+    }
+}
+
+
+
+void fast_menu(struct Survivor *head) {
+    int menu = 1;
+    while (menu == 1) {
+        int option = 0;
+        int type = 0;
+        system("cls");
+        fast_title();
+        survivor_id_update(head);
+        add_all_to_file(head);
+        survivor_health_status_change(head);
+
+        printf("\n"
+               "______________________________"
+               "\n|   1 - Segregate         |\n"
+               "\n"
+               "|   2 - Find                |\n"
+               "\n"
+               "|   0 - Exit                |\n"
+               "------------------------------\n");
+
+        printf("\nChoose your option: \n");
+        int wybor = check_interval(0, 2);
+
+        switch (wybor) {
+            case 1:
+                printf("Choose an option: \n"
+                       "0 - Sort by name\n"
+                       "1 - Sort by skill\n"
+                       "2 - Sort by rations\n"
+                       "3 - Sort by health\n"
+                       "4 - Sort bt threatLevel\n");
+                option = check_interval(0,4);
+                printf("\n0 - Ascending >\n1 - Descending <\n");
+                type = check_interval(0,1);
+                bubble_segregate(head, option, type);
+                break;
+            case 2:
+
+                break;
+
+            case 0:
+                printf("\nExiting Survivor Manager...\n");
+                menu = 0;
+                break;
+            default:
+                printf("Sorry, you selected an invalid option.\n");
+        }
+    }
+}
+
+void main_menu(struct Survivor **head) {
+    int menu = 1;
+    int option = 0;
+    while (menu == 1) {
+        system("cls");
+        show_title();
+        survivor_id_update(*head);
+        add_all_to_file(*head);
+        survivor_health_status_change(*head);
+
+        printf("\n"
+               "______________________________"
+               "\n|   1 - S.M.A.R.T.         |\n"
+               "\n"
+               "|   2 - F.A.S.T.             |\n"
+               "\n"
+               "|   3 - Quests               |\n"
+               "\n"
+               "|   4 - Next Day...          |\n"
+               "\n"
+               "|   0 - Exit                 |\n"
+               "------------------------------\n");
+
+        printf("\nChoose your option: \n");
+        int wybor = check_interval(0, 2);
+
+        switch (wybor) {
+            case 1:
+                system("cls");
+                survivor_menu(head);
+                break;
+            case 2:
+                fast_menu(*head);
+                break;
+            case 3:
+                break;
+            case 0:
+                printf("\nExiting Survivor Manager...\n");
+                menu = 0;
+                break;
             default:
                 printf("Sorry, you selected an invalid option.\n");
         }
