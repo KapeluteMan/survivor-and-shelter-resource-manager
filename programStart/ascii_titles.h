@@ -8,7 +8,7 @@
 
 
 void survivor_editing_title();
-void survivor_deleting_title()
+void survivor_deleting_title();
 
 
 

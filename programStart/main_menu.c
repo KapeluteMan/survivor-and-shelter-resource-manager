@@ -1,15 +1,17 @@
-#include "main_menu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "ascii_titles.h"
 #include "../logicFunctions/logic_functions.h"
 #include "../survivor/list_operations.h"
 #include "../survivor/show.h"
 #include "../survivor/survivor_struct.h"
 
+#include "main_menu.h"
 
-void segragate_filtr_menu(struct Survivor **head) {
+
+void segregate_filtr_menu(struct Survivor **head) {
     survivor_deleting_title();
     int menu = 1;
     int option = 0;

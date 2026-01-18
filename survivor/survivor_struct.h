@@ -32,9 +32,9 @@ typedef struct Survivor {
     enum state_of_health state_of_health;
     int threat_level;
     enum status_of_survivor status_of_survivor;
-    struct Survivor* next;
-}Survivor;
+    struct Survivor *next;
+} Survivor;
 
-void copy_survivor(const struct Survivor* from, struct Survivor* to);
+void copy_survivor(const Survivor *from, Survivor *to);
 
 #endif //SURVIVOR_STRUCT_H

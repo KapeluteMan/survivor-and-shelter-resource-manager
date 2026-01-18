@@ -3,5 +3,6 @@
 
 
 struct Quest *add_quest(struct Quest *head, struct Quest *toAdd);
+struct Quest* random_quest(struct Quest* head);
 
 #endif //QUEST_LIST_OPERATIONS_H
