@@ -10,11 +10,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "survivor/survivor_struct.h"
 #include "quest/add_from_file.h"
 #include "logicFunctions/logic_functions.h"
 #include "programStart/starting_functions.h"
+#include "quest/list_operations.h"
+#include "quest/quest_struct.h"
 #include "survivor/list_operations.h"
 #include "quest/show.h"
 #include "survivor/show.h"
@@ -23,7 +26,7 @@
 
 
 int main() {
-
+    srand(time(NULL));
     Survivor *head = NULL;
     //add_to_file(head);
 
@@ -67,6 +70,7 @@ int main() {
                 show_title();
                 printf("List:\n");
                 print_list(head);
+                head = delete_by_skill(head, MEDIC);
                 break;
             case 4:
                 system("cls");
@@ -97,7 +101,11 @@ int main() {
                 system("cls");
                 show_title();
                 printf("List:\n");
-                print_quest(q_head);
+                print_quest_list(q_head);
+
+                Quest* tym = random_quest(q_head);
+                print_quest(tym);
+                free(tym);
                 break;
             case 7:
                 menu = 0;

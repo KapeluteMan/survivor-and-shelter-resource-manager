@@ -4,10 +4,10 @@
 
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
-struct Survivor;
+// struct Survivor;
 
 
-void segragate_filtr_menu(struct Survivor **head);
+void segregate_filtr_menu(struct Survivor **head);
 void main_menu();
 struct Survivor* survivor_deleting_menu(struct Survivor *head);
 void survivor_menu(struct Survivor **head);

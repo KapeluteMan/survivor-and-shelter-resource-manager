@@ -304,7 +304,7 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
 
 Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
     struct Survivor *next = head;
-    int to_delete[20]={0};
+    int to_delete[30]={0};
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
