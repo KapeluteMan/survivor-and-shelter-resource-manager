@@ -18,6 +18,7 @@
 #include "../survivor/find.h"
 #include "../survivor/file_operations.h"
 #include "starting_functions.h"
+#include <conio.h>
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
@@ -206,11 +207,16 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
 
 void survivor_menu(struct Survivor **head) {
     int menu = 1;
+    int tmp = 0;
     while (menu == 1) {
+        system("cls");
+        survivor_id_update(*head);
+        add_all_to_file(*head);
+        survivor_health_status_change(*head);
         survivor_editing_title();
         printf("\n"
                "______________________________"
-               "|   1 - Add the Survivor     |\n"
+               "\n|   1 - Add the Survivor     |\n"
                "\n"
                "|   2 - List the Survivors   |\n"
                "\n"
@@ -234,12 +240,16 @@ void survivor_menu(struct Survivor **head) {
                 break;
             case 2:
                 system("cls");
+                print_list(*head);
+                getch();
                 break;
             case 3:
                 break;
             case 4:
                 system("cls");
                 printf("Amount of survivors: %d\n", check_amount(*head));
+                getch();
+
                 break;
             case 5:
                 system("cls");
@@ -248,6 +258,7 @@ void survivor_menu(struct Survivor **head) {
             case 0:
                 printf("\nExiting S.M.A.R.T.\n");
                 menu = 0;
+                break;
             default:
                 printf("Sorry, you selected an invalid option.\n");
         }
