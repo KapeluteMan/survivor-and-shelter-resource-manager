@@ -4,12 +4,37 @@
 
 #include "ascii_titles.h"
 #include "../logicFunctions/logic_functions.h"
+
 #include "../survivor/list_operations.h"
 #include "../survivor/show.h"
 #include "../survivor/survivor_struct.h"
 
+#include "../quest/quest_struct.h"
+#include "../quest/list_operations.h"
+#include "../quest/show.h"
+
 #include "main_menu.h"
 
+#include "../survivor/find.h"
+
+void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest *quest_in_progress) {
+    struct Quest *rand_quest = random_quest(q_head);
+    printf("Available misson:\n");
+    print_quest(rand_quest);
+    printf("Do you want to take this mission?\n"
+           "1 - Yes\n"
+           "0 - NO\n");
+    int tym1 = check_interval(0,1);
+    if (tym1 ==0) {
+        print_list(s_head);
+        printf("Whose survivor you wish to send on a mission (enter id)?");
+        int tym2 = check_interval(1,check_amount(s_head));
+        struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
+        struct Quest *mission_to_add = copy_quest(rand_quest);
+        //przypusanie survivor do quest
+        add_quest(quest_in_progress,mission_to_add);
+    }
+}
 
 void segregate_filtr_menu(struct Survivor **head) {
     survivor_deleting_title();
