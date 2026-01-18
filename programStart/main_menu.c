@@ -18,6 +18,7 @@
 #include "../survivor/find.h"
 #include "../survivor/file_operations.h"
 #include "starting_functions.h"
+#include <conio.h>
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
@@ -27,7 +28,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
            "1 - Yes\n"
            "0 - NO\n");
     int tym1 = check_interval(0,1);
-    if (tym1 ==0) {
+    if (tym1 ==1) {
         print_list(s_head);
         printf("Whose survivor you wish to send on a mission (enter id)?");
         int tym2 = check_interval(1,check_amount(s_head));
@@ -36,6 +37,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         //przypusanie survivor do quest
         *quest_in_progress = add_quest(*quest_in_progress,mission_to_add);
     }
+
 }
 
 void segregate_filtr_menu(struct Survivor **head) {
@@ -205,11 +207,16 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
 
 void survivor_menu(struct Survivor **head) {
     int menu = 1;
+    int tmp = 0;
     while (menu == 1) {
+        system("cls");
+        survivor_id_update(*head);
+        add_all_to_file(*head);
+        survivor_health_status_change(*head);
         survivor_editing_title();
         printf("\n"
                "______________________________"
-               "|   1 - Add the Survivor     |\n"
+               "\n|   1 - Add the Survivor     |\n"
                "\n"
                "|   2 - List the Survivors   |\n"
                "\n"
@@ -233,12 +240,16 @@ void survivor_menu(struct Survivor **head) {
                 break;
             case 2:
                 system("cls");
+                print_list(*head);
+                getch();
                 break;
             case 3:
                 break;
             case 4:
                 system("cls");
                 printf("Amount of survivors: %d\n", check_amount(*head));
+                getch();
+
                 break;
             case 5:
                 system("cls");
@@ -247,6 +258,7 @@ void survivor_menu(struct Survivor **head) {
             case 0:
                 printf("\nExiting S.M.A.R.T.\n");
                 menu = 0;
+                break;
             default:
                 printf("Sorry, you selected an invalid option.\n");
         }
@@ -329,7 +341,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                "------------------------------\n");
 
         printf("\nChoose your option: \n");
-        int wybor = check_interval(0, 2);
+        int wybor = check_interval(0, 3);
 
         switch (wybor) {
             case 1:

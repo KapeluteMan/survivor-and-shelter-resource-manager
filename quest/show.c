@@ -8,19 +8,18 @@
 
 void print_quest_list(Quest *head) {
     if (head == NULL) {
-        printf("There is no quest here.\n");
+        printf("There is no active quest.\n");
         return;
     }
 
     struct Quest *n = head;
 
 
-    printf("--- List Quests ---\n");
+    printf("--- List Active Quests ---\n");
 
     while (n != NULL) {
-        // printf(" Quest length = %d, Succession rate = %d%%\n",
-        //        n->quest_length, n->succession_rate);
-        print_quest(n);
+        printf(" Quest length left = %d, Succession rate = %d%%, Survivor = %s\n",
+        n->quest_length, n->succession_rate,n->survivor_name);
 
         n = n->next;
     }
