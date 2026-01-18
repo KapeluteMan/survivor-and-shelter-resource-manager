@@ -69,7 +69,6 @@ void segregate_filtr_menu(struct Survivor **head) {
                 system("cls");
                 printf("\n|0 - Ascending >\n|1 - Descending <\n");
                 type = check_interval(0,1);
-
                 bubble_segregate(*head, option, type);
                 break;
             case 2:
@@ -83,6 +82,8 @@ void segregate_filtr_menu(struct Survivor **head) {
         }
     }
 }
+
+
 
 struct Survivor* survivor_deleting_menu(struct Survivor *head){
     survivor_deleting_title();
@@ -304,7 +305,7 @@ void fast_menu(struct Survivor *head) {
     }
 }
 
-void main_menu(struct Survivor **head) {
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress) {
     int menu = 1;
     int option = 0;
     while (menu == 1) {
@@ -339,6 +340,7 @@ void main_menu(struct Survivor **head) {
                 fast_menu(*head);
                 break;
             case 3:
+                menu_assign_quest(*q_head,*head,quest_in_progress);
                 break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");

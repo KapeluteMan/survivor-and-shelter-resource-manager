@@ -32,6 +32,7 @@ int main() {
     //add_to_file(head);
 
     struct Quest *q_head = NULL;
+    struct Quest *quest_in_progress = NULL;
     start_program(&head,&q_head);
     show_title();
     survivor_id_update(head);
@@ -39,7 +40,7 @@ int main() {
     add_all_to_file(head);
     survivor_health_status_change(head);
     while (menu == 1) {
-        main_menu(&head);
+        main_menu(&head, &q_head, &quest_in_progress);
         break;
     }
 
