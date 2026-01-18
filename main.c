@@ -70,6 +70,7 @@ int main() {
                 show_title();
                 printf("List:\n");
                 print_list(head);
+                head = delete_by_skill(head, MEDIC);
                 break;
             case 4:
                 system("cls");

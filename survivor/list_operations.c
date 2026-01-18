@@ -302,7 +302,7 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
     return head;
 }
 
-Survivor *delete_by_skill(Survivor *head, int skill) {
+Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
     struct Survivor *next = head;
     int to_delete[30]={0};
     int pom=0;
@@ -409,7 +409,7 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
     return head;
 }
 
-Survivor *delete_by_state_of_health(Survivor *head, int state_of_health) {
+Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_of_health) {
     Survivor *next = head;
     int to_delete[20]={0};
     int pom=0;
