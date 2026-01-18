@@ -39,11 +39,10 @@ void survivor_deleting_title() {
 
 
 void fast_title() {
-    printf("  ___   __  __     _     ___ _____ \n");
-    printf(" / __| |  \\/  |   /_\\   | _ \\_   _|\n");
-    printf(" \\__ \\_| |\\/| |_ / _ \\ _|   /_| |_ \n");
-    printf(" |___(_)_|  |_(_)_/ \\_(_)_|_(_)_(_)\n");
-    printf("                                    \n");
+    printf("  ___   _     ___ _____ \n");
+    printf(" | __| /_\\   / __|_   _|\n");
+    printf(" | _| / _ \\ _\\__ \\_| |_ \n");
+    printf(" |_(_)_/ \\_(_)___(_)_(_)(Filter and SorTing)\n");
 
 
 }

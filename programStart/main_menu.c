@@ -40,51 +40,6 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
 
 }
 
-void segregate_filtr_menu(struct Survivor **head) {
-    survivor_deleting_title();
-    int menu = 1;
-    int option = 0;
-    int type = 0;
-    while (menu == 1) {
-        printf("\n"
-               "______________________________"
-               "\n|   1 - Segregate            |\n"
-               "\n"
-               "|   2 - Filter               |\n"
-               "\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
-
-        printf("\nChoose your option: \n");
-        int wybor = check_interval(0, 2);
-
-        switch (wybor) {
-            case 1:
-                system("cls");
-                printf("Choose an option: \n"
-                       "|0 - Sort by name\n"
-                       "|1 - Sort by skill\n"
-                       "|2 - Sort by rations\n"
-                       "|3 - Sort by health\n"
-                       "|4 - Sort by threatLevel\n");
-                option = check_interval(0,4);
-                system("cls");
-                printf("\n|0 - Ascending >\n|1 - Descending <\n");
-                type = check_interval(0,1);
-                bubble_segregate(*head, option, type);
-                break;
-            case 2:
-                system("cls");
-                break;
-            case 0:
-                printf("\nExiting S.M.A.R.T.\n");
-                menu = 0;
-            default:
-                printf("Sorry, you selected an invalid option.\n");
-        }
-    }
-}
-
 
 
 struct Survivor* survivor_deleting_menu(struct Survivor *head){
@@ -92,9 +47,14 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
     int menu = 1;
     int tmp = 0;
     while (menu == 1) {
+        system("cls");
+        survivor_id_update(head);
+        add_all_to_file(head);
+        survivor_health_status_change(head);
+        survivor_deleting_title();
         printf("\n"
-               "______________________________"
-               "\n|   1 - ID                   |\n"
+               "______________________________\n"
+               "|   1 - ID                   |\n"
                "\n"
                "|   2 - NAME                 |\n"
                "\n"
@@ -205,6 +165,141 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
     return head;
 }
 
+
+void find_menu(struct Survivor *head) {
+    int menu = 1;
+
+    while (menu) {
+        system("cls");
+        fast_title();
+        survivor_id_update(head);
+        add_all_to_file(head);
+        survivor_health_status_change(head);
+        printf("\n"
+               "______________________________\n"
+               "|   1 - Find by ID           |\n"
+               "|   2 - Find by NAME         |\n"
+               "|   3 - Find by PREFIX NAME  |\n"
+               "|   4 - Find by SKILL        |\n"
+               "|   5 - Find by RATIONS      |\n"
+               "|   6 - Find by HEALTH       |\n"
+               "|   7 - Find by HEALTH STATE |\n"
+               "|   8 - Find by THREAT LEVEL |\n"
+               "|   0 - Exit                 |\n"
+               "------------------------------\n");
+
+        printf("\nChoose option: ");
+        int wybor = check_interval(0, 8);
+
+        struct Survivor *result = NULL;
+
+        switch (wybor) {
+
+            case 1: { // ID
+                int id;
+                printf("Enter ID: ");
+                id = insert_int();
+                result = find_by_id(head, id);
+                if (result)
+                    print_list(result);
+                else
+                    printf("Not found.\n");
+                getch();
+                break;
+            }
+
+            case 2: { // NAME
+                char name[100];
+                printf("Enter name: ");
+                insert_string(name);
+                result = find_by_name(head, name);
+                if (result)
+                    print_list(result);
+                else
+                    printf("Not found.\n");
+                getch();
+                break;
+            }
+
+            case 3: { // PREFIX
+                char prefix[100];
+                printf("Enter prefix: ");
+                insert_string(prefix);
+                result = find_by_prefix_name(head, prefix);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 4: { // SKILL
+                printf("0-MEDIC 1-ENGINEER 2-HUNTER 3-ORDINARY\n");
+                int skill = check_interval(0,3);
+                result = find_by_skill(head, skill);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 5: { // RATIONS
+                int rations, mode;
+                printf("Enter rations: ");
+                rations = insert_int();
+                printf("1-equal 2-less 3-greater\n");
+                mode = check_interval(1,3);
+                result = find_by_rations(head, rations, mode);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 6: { // HEALTH
+                int health, mode;
+                printf("Enter health: ");
+                health = insert_int();
+                printf("1-equal 2-less 3-greater\n");
+                mode = check_interval(1,3);
+                result = find_by_health(head, health, mode);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 7: { // HEALTH STATE
+                printf("0-HEALTHY 1-WEAKEN 2-SICK 3-DYING\n");
+                int state = check_interval(0,3);
+                result = find_by_health_state(head, state);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 8: { // THREAT
+                int threat, mode;
+                printf("Enter threat level: ");
+                threat = insert_int();
+                printf("1-equal 2-less 3-greater\n");
+                mode = check_interval(1,3);
+                result = find_by_threat_level(head, threat, mode);
+                print_list(result);
+                free_list(result);
+                getch();
+                break;
+            }
+
+            case 0:
+                menu = 0;
+                break;
+        }
+    }
+}
+
+
+
 void survivor_menu(struct Survivor **head) {
     int menu = 1;
     int tmp = 0;
@@ -215,8 +310,8 @@ void survivor_menu(struct Survivor **head) {
         survivor_health_status_change(*head);
         survivor_editing_title();
         printf("\n"
-               "______________________________"
-               "\n|   1 - Add the Survivor     |\n"
+               "______________________________\n"
+               "|   1 - Add the Survivor     |\n"
                "\n"
                "|   2 - List the Survivors   |\n"
                "\n"
@@ -265,8 +360,6 @@ void survivor_menu(struct Survivor **head) {
     }
 }
 
-
-
 void fast_menu(struct Survivor *head) {
     int menu = 1;
     while (menu == 1) {
@@ -279,8 +372,8 @@ void fast_menu(struct Survivor *head) {
         survivor_health_status_change(head);
 
         printf("\n"
-               "______________________________"
-               "\n|   1 - Segregate         |\n"
+               "______________________________\n"
+               "|   1 - Segregate           |\n"
                "\n"
                "|   2 - Find                |\n"
                "\n"
@@ -304,7 +397,7 @@ void fast_menu(struct Survivor *head) {
                 bubble_segregate(head, option, type);
                 break;
             case 2:
-
+                find_menu(head);
                 break;
 
             case 0:
@@ -328,8 +421,8 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
         survivor_health_status_change(*head);
 
         printf("\n"
-               "______________________________"
-               "\n|   1 - S.M.A.R.T.         |\n"
+               "______________________________\n"
+               "|   1 - S.M.A.R.T.           |\n"
                "\n"
                "|   2 - F.A.S.T.             |\n"
                "\n"
@@ -341,7 +434,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                "------------------------------\n");
 
         printf("\nChoose your option: \n");
-        int wybor = check_interval(0, 3);
+        int wybor = check_interval(0, 4);
 
         switch (wybor) {
             case 1:
