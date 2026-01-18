@@ -48,7 +48,7 @@ void segregate_filtr_menu(struct Survivor **head) {
     while (menu == 1) {
         printf("\n"
                "______________________________"
-               "|   1 - Segregate            |\n"
+               "\n|   1 - Segregate            |\n"
                "\n"
                "|   2 - Filter               |\n"
                "\n"
@@ -94,7 +94,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
     while (menu == 1) {
         printf("\n"
                "______________________________"
-               "|   1 - ID                   |\n"
+               "\n|   1 - ID                   |\n"
                "\n"
                "|   2 - NAME                 |\n"
                "\n"
