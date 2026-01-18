@@ -15,6 +15,7 @@
 #include "survivor/survivor_struct.h"
 #include "quest/add_from_file.h"
 #include "logicFunctions/logic_functions.h"
+#include "programStart/main_menu.h"
 #include "programStart/starting_functions.h"
 #include "quest/list_operations.h"
 #include "quest/quest_struct.h"
@@ -38,9 +39,7 @@ int main() {
     add_all_to_file(head);
     survivor_health_status_change(head);
     while (menu == 1) {
-        void survivor_menu(struct Survivor **head);
-
-
+        survivor_menu(&head);
     }
 
 
