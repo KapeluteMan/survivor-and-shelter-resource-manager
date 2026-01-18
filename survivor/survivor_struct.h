@@ -36,5 +36,8 @@ typedef struct Survivor {
 } Survivor;
 
 void copy_survivor(const Survivor *from, Survivor *to);
+enum specialist_skill form_int_to_enum_skill(int a);
+enum state_of_health form_int_to_enum_state_health(int a);
+
 
 #endif //SURVIVOR_STRUCT_H
