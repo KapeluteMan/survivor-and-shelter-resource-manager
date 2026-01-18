@@ -27,7 +27,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
            "1 - Yes\n"
            "0 - NO\n");
     int tym1 = check_interval(0,1);
-    if (tym1 ==0) {
+    if (tym1 ==1) {
         print_list(s_head);
         printf("Whose survivor you wish to send on a mission (enter id)?");
         int tym2 = check_interval(1,check_amount(s_head));
@@ -36,6 +36,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         //przypusanie survivor do quest
         *quest_in_progress = add_quest(*quest_in_progress,mission_to_add);
     }
+
 }
 
 void segregate_filtr_menu(struct Survivor **head) {
