@@ -5,6 +5,7 @@
 #include "../survivor/survivor_struct.h"
 
 #include "list_operations.h"
+#include "../survivor/list_operations.h"
 
 #include "../survivor/find.h"
 
@@ -39,7 +40,7 @@ Quest *random_quest(Quest *head) {
 }
 
 int calc_chance_of_success(struct Survivor* survivor) {
-    int ch = 50;
+    int ch = rand()%50 + 40;
     switch (survivor->state_of_health) {
         case 0:
             ch *=3;
@@ -75,7 +76,7 @@ void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *r
     } else {
 
         if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
-            *rations += 5; //okraślana na podstawie trudności????
+            *rations += 120-finished_quest->succession_rate * 3;
         }
         struct Survivor *next = head;
         while (next!=NULL) {
@@ -89,6 +90,18 @@ void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *r
                 }
             }
             next=next->next;
+        }
+        if (rand()%5==0) {
+            printf("Survivor %s found another survivor\n",finished_quest->survivor_name);
+            head = add_survivor_name(head);
+        }
+        if (rand()%10==0) {
+            printf("Survivor %s found another survivor\n",finished_quest->survivor_name);
+            head = add_survivor_name(head);
+        }
+        if (rand()%20==0) {
+            printf("Survivor %s found another survivor\n",finished_quest->survivor_name);
+            head = add_survivor_name(head);
         }
     }
 }

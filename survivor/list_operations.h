@@ -5,6 +5,8 @@ struct Survivor* add_last(struct Survivor* head, struct Survivor* n);
 
 struct Survivor* add_survivor(struct Survivor* head);
 
+struct Survivor *add_survivor_name(struct Survivor *head);
+
 int check_amount(struct Survivor *head);
 
 int check_state_health(int value);
