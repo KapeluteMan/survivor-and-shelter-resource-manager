@@ -138,6 +138,7 @@ Survivor* load_survivors(Survivor *head, int n) {
         new_survivor->rations = rand()%10+1;
         new_survivor->health = rand()%100+1;
         new_survivor->threat_level = rand()%10+1;
+        new_survivor->skill=rand()%4;
         head = add_last(head,new_survivor);
     }
     return head;

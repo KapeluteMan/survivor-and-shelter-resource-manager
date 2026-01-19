@@ -282,7 +282,7 @@ void find_menu(struct Survivor *head) {
                 int threat, mode;
                 printf("Enter threat level: ");
                 threat = insert_int();
-                printf("1-equal 2-less 3-greater\n");
+                printf("1-equal 2-greater 3-less\n");
                 mode = check_interval(1,3);
                 result = find_by_threat_level(head, threat, mode);
                 print_list(result);
