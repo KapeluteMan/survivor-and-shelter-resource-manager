@@ -201,7 +201,7 @@ void find_menu(struct Survivor *head) {
                 id = insert_int();
                 result = find_by_id(head, id);
                 if (result)
-                    print_list(result);
+                    print_one(result);
                 else
                     printf("Not found.\n");
                 getch();
@@ -214,7 +214,7 @@ void find_menu(struct Survivor *head) {
                 insert_string(name);
                 result = find_by_name(head, name);
                 if (result)
-                    print_list(result);
+                    print_one(result);
                 else
                     printf("Not found.\n");
                 getch();
