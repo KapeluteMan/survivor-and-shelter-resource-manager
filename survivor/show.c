@@ -48,3 +48,26 @@ void short_print_list(struct Survivor *head) {
         n = n->next;
     }
 }
+
+
+void print_one(struct Survivor *head) {
+    struct Survivor *n = head;
+    if (head == NULL) {
+        return;
+    }
+
+    char classes_tab[4][10] = {"Medic", "Engineer", "Hunter", "Ordinary"};
+    char state_of_health_tab[4][10] = {"Healthy", "Weaken", "Sick", "Dying"};
+    char status_tab[5][11] = {"Waiting", "Wounded", "On Mission", "Missing", "Dead"};
+    printf("Id: %d\n", n->id);
+    printf("Name: %s\n", n->name);
+    printf("Class: %s\n", classes_tab[n->skill]);
+    printf("Demand for rations: %d\n", n->rations);
+    printf("Health: %d\n", n->health);
+    printf("State of health: %s\n", state_of_health_tab[n->state_of_health]);
+    printf("Status: %s\n", status_tab[n->status_of_survivor]);
+    printf("Threat level: %d\n----------------------\n\n", n->threat_level);
+
+    
+
+}
