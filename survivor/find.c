@@ -70,6 +70,7 @@ struct Survivor *find_by_skill(struct Survivor *head, const enum specialist_skil
                 return new_head;
             }
         }
+        current=current->next;
     }
 
     return new_head;
@@ -203,6 +204,7 @@ struct Survivor *find_by_health_state(struct Survivor *head, const enum state_of
                 return new_head;
             }
         }
+        current=current->next;
     }
 
     return new_head;
@@ -279,6 +281,7 @@ struct Survivor *find_first_by_status(struct Survivor *head, const enum status_o
                 return new_head;
             }
         }
+        current=current->next;
     }
 
     return new_head;
