@@ -306,7 +306,6 @@ void survivor_menu(struct Survivor **head) {
     while (menu == 1) {
         system("cls");
         survivor_id_update(*head);
-        add_all_to_file(*head);
         survivor_health_status_change(*head);
         survivor_editing_title();
         printf("\n"
@@ -368,7 +367,6 @@ void fast_menu(struct Survivor *head) {
         system("cls");
         fast_title();
         survivor_id_update(head);
-        add_all_to_file(head);
         survivor_health_status_change(head);
 
         printf("\n"
@@ -417,7 +415,6 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
         system("cls");
         show_title();
         survivor_id_update(*head);
-        add_all_to_file(*head);
         survivor_health_status_change(*head);
 
         printf("\n"

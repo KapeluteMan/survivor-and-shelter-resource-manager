@@ -122,3 +122,14 @@ Quest *checked_finished_quest(struct Quest *head, struct Survivor *s_head, int *
     }
     return head;
 }
+
+int check_amount_quest(Quest *head) {
+    Quest *n = head;
+    int i = 0;
+
+    while (n != NULL) {
+        i++;
+        n = n->next;
+    }
+    return i;
+}

@@ -29,7 +29,6 @@
 int main() {
     srand(time(NULL));
     Survivor *head = NULL;
-    //add_to_file(head);
 
     struct Quest *q_head = NULL;
     struct Quest *quest_in_progress = NULL;
@@ -37,7 +36,6 @@ int main() {
     show_title();
     survivor_id_update(head);
     int menu = 1;
-    add_all_to_file(head);
     survivor_health_status_change(head);
     while (menu == 1) {
         main_menu(&head, &q_head, &quest_in_progress);

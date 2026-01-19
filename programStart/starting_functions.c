@@ -126,23 +126,32 @@ void save_time() {
     fclose(f);
 }
 
-Survivor* load_survivors(Survivor *head) {
+Survivor* load_survivors(Survivor *head, int n) {
     Survivor* new_survivor = NULL;
-    new_survivor = calloc(1,sizeof(Survivor));
-    strcpy(new_survivor->name,"Bożydar");
-    new_survivor->rations = 5;
-    new_survivor->health = 70;
-    new_survivor->threat_level = 3;
-    head = add_last(head, new_survivor);
+    char name_tab[20][100] = {
+        "Filip", "Yuliia", "Inga", "Marcin", "Nadia", "Aleksander", "Joanna", "Weronika", "Karolina", "Alicja",
+        "Grzegorz", "Dariusz", "Krzysztof", "Sabina", "Maciej", "Maria", "Oliver", "Renata", "Paulina", "Hubert",
+    };
+    for (int i=0;i<n;i++) {
+        new_survivor = calloc(1,sizeof(Survivor));
+        strcpy(new_survivor->name,name_tab[i]);
+        new_survivor->rations = rand()%10+1;
+        new_survivor->health = rand()%100+1;
+        new_survivor->threat_level = rand()%10+1;
+        head = add_last(head,new_survivor);
+    }
     return head;
 }
 
-Quest* load_quests(Quest *head) {
+Quest* load_quests(Quest *head, int n) {
     Quest* new_quest = NULL;
-    new_quest = calloc(1,sizeof(Quest));
-    new_quest->quest_length=9;
-    new_quest->succession_rate=70;
-    head= add_quest(head,new_quest);
+    for (int i=0;i<n;i++) {
+        new_quest = calloc(1,sizeof(Quest));
+        new_quest->quest_length=rand()%10+1;
+        new_quest->succession_rate=rand()%100+1;
+        head= add_quest(head,new_quest);
+    }
+
     return head;
 }
 
@@ -152,9 +161,10 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     show_title();
     loading_for("Building shelter",true);
     loading_for("Gathering rations",true);
+    show_title();
     printf("Do you want to enter survivors manually?\n");
-    printf("0 - NO\n");
     printf("1 - YES\n");
+    printf("0 - NO\n");
     int answer = check_interval(0,1);
     if (answer == 0) {
         *survivor_head = add_survivors_from_file();
@@ -163,13 +173,16 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
         } else {
             loading_for("Loading survivors from file",false);
             loading_for("Loading survivors from memory",true);
-            *survivor_head = load_survivors(*survivor_head);
         }
     } else {
-        for (int i=0;i<3;i++) {
+        for (int i=0;i<20;i++) {
             *survivor_head = add_survivor(*survivor_head);
         }
         loading_for("Loading inserted survivors", true);
+    }
+    int pom=check_amount(*survivor_head);
+    if (pom < 20) {
+        *survivor_head=load_survivors(*survivor_head,20-pom);
     }
 
     show_title();
@@ -179,7 +192,10 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     } else {
         loading_for("Loading quests from file",false);
         loading_for("Loading quests from memory",true);
-        *quest_head = load_quests(*quest_head);
+    }
+    pom = check_amount_quest(*quest_head);
+    if (pom<20) {
+        *quest_head=load_quests(*quest_head,20-pom);
     }
 
     loading_for("Loading user",true);
