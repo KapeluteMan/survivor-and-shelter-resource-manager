@@ -31,11 +31,44 @@ struct Survivor *add_survivor(struct Survivor *head) {
         return head; //zwarca starą głowę listy
     }
 
-    int amount = check_amount(head);
-    if (amount >= 3) {
-        printf("//You cannot add more survivors!\n");
-        printf("Some other actions should be taken...\n");
-        return head;
+    printf("// Insert name:\n");
+    char text[100];
+    insert_string(text);
+    while (getchar()!='\n') {}
+    Survivor* potential_survivor = find_by_name(head,text);
+    while (potential_survivor!=NULL) {
+        printf("There is survivor of that name, enter different one\n");
+        insert_string(text);
+        while (getchar()!='\n') {}
+        potential_survivor = find_by_name(head,text);
+    }
+    strcpy(n->name,text);
+
+    printf("// Insert their skill:\n");
+    printf(" - 0: Medic\n - 1: Engineer\n - 2: Hunter\n - 3: Ordinary\n");
+    n->skill = check_interval(0, 3);
+
+    printf("// Insert their demand for rations (1-20):\n");
+    n->rations = check_interval(1, 20);
+
+    printf("// Insert their health (0-100):\n");
+    n->health = check_interval(0, 100);
+    n->state_of_health = check_state_health(n->health);
+
+    printf("// Insert their threat level (1-10):\n");
+    n->threat_level = check_interval(1, 10);
+
+    n->status_of_survivor = 0;
+    n->next = NULL;
+
+    return add_last(head, n);
+}
+
+struct Survivor *add_survivor_name(struct Survivor *head) {
+    struct Survivor *n = calloc(1, sizeof(struct Survivor));
+
+    if (n == NULL) {
+        return head; //zwarca starą głowę listy
     }
 
     printf("// Insert name:\n");
@@ -51,19 +84,14 @@ struct Survivor *add_survivor(struct Survivor *head) {
     }
     strcpy(n->name,text);
 
-    printf("// Insert their skill:\n");
-    printf(" - 0: Medic\n - 1: Engineer\n - 2: Ordinary\n");
-    n->skill = check_interval(0, 2);
+    n->skill = rand()%4;
 
-    printf("// Insert their demand for rations:\n");
-    n->rations = check_interval(0, 100);
+    n->rations = rand()%10+1;
 
-    printf("// Insert their health (0-100):\n");
-    n->health = check_interval(0, 100);
+    n->health = rand()%100+1;
     n->state_of_health = check_state_health(n->health);
 
-    printf("// Insert their threat level (0-10):\n");
-    n->threat_level = check_interval(0, 10);
+    n->threat_level = rand()%10+1;
 
     n->status_of_survivor = 0;
     n->next = NULL;
