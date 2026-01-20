@@ -511,3 +511,62 @@ void free_list(Survivor *head) {
     head = NULL;
 }
 
+
+
+void edit_survivor(Survivor *head) {
+    if (head == NULL) {
+        printf(" List is empty\n");
+        return;
+    }
+
+    int id;
+    printf("  Insert id : ");
+    scanf("%d", &id);
+
+    Survivor *n = head;
+
+    while (n != NULL && n->id != id) {
+        n = n->next;
+    }
+
+    if (n == NULL) {
+        printf(" A survivor not found\n");
+        return;
+    }
+
+    if (n->status_of_survivor == MISSING || n->status_of_survivor == ON_MISSION) {
+        printf("Cannot edit: %s\n", n->name);
+        return;
+    }
+
+    int choice;
+    printf("\n Editing: %s\n", n->name);
+    printf("1. Skill\n2. Rations\n3. Health\n4. Threat level\n0. Cancel\n");
+    choice = check_interval(0, 4);
+
+    switch (choice) {
+        case 1:
+            n->skill = check_interval(0, 3);
+            break;
+        case 2:
+            n->rations = check_interval(1, 20);
+            break;
+        case 3:
+            n->health = check_interval(0, 100);
+            n->state_of_health = check_state_health(n->health);
+            break;
+        case 4:
+            n->threat_level = check_interval(1, 10);
+            break;
+        case 0:
+            return;
+    }
+}
+
+
+
+
+
+
+
+

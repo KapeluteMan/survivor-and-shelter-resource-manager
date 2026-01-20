@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include "quest_struct.h"
 #include "../survivor/survivor_struct.h"
 
@@ -146,3 +146,18 @@ int check_amount_quest(Quest *head) {
     }
     return i;
 }
+
+void survivor_to_quest(Quest *quest, struct Survivor *survivor) {
+    if (quest == NULL || survivor == NULL) {
+        return;
+    }
+
+    strncpy(quest->survivor_name, survivor->name, sizeof(quest->survivor_name) - 1);
+    quest->survivor_name[sizeof(quest->survivor_name) - 1] = '\0';
+
+    survivor->status_of_survivor = ON_MISSION;
+}
+
+
+
+

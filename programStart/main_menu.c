@@ -35,6 +35,7 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
         struct Quest *mission_to_add = copy_quest(rand_quest);
         //przypusanie survivor do quest
+        survivor_to_quest(mission_to_add, survivor_to_mission);
         *quest_in_progress = add_quest(*quest_in_progress,mission_to_add);
     }
 
@@ -338,6 +339,10 @@ void survivor_menu(struct Survivor **head) {
                 getch();
                 break;
             case 3:
+                print_list(*head);
+                system("cls");
+                edit_survivor(*head);
+
                 break;
             case 4:
                 system("cls");
