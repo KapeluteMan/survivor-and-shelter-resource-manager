@@ -19,6 +19,8 @@ void bubble_segregate(struct Survivor* head, int option, int type);
 
 void survivor_id_update(struct Survivor* head);
 
+void edit_survivor(struct Survivor *head);
+
 struct Survivor* delete_by_id(struct Survivor* head, int id);
 
 struct Survivor *delete_by_name(struct Survivor *head, char name[100],int mode);
