@@ -272,10 +272,12 @@ Survivor *delete_by_id(Survivor *head, int id) {
             printf("Nie możesz usunąć surviviora o nazwie : %s\n",head->name);
             return head;
         }
+        printf("%s has been buried", head->name);
         Survivor *new_head = head->next;
         add_one_to_file(head);
         free(head);
         head = new_head;
+        getch();
         return head;
     }
 
@@ -291,6 +293,7 @@ Survivor *delete_by_id(Survivor *head, int id) {
             prev->next = curr->next;
             add_one_to_file(curr);
             free(curr);
+            getch();
             return head;
         }
 
@@ -324,8 +327,12 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -345,8 +352,12 @@ Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -388,8 +399,12 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -431,8 +446,12 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -452,8 +471,12 @@ Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_o
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -495,8 +518,11 @@ Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int con
     }
 
     for (int i=0;i<pom;i++) {
+        struct Survivor* n = find_by_id(head, to_delete[i]);
+        printf("%s has been buried\n", n->name);
         head = delete_by_id(head, to_delete[i]);
     }
+    getch();
 
     return head;
 }
