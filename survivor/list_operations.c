@@ -615,16 +615,21 @@ void edit_survivor(Survivor *head) {
 
     switch (choice) {
         case 1:
+            printf("// Insert their skill:\n");
+            printf(" - 0: Medic\n - 1: Engineer\n - 2: Hunter\n - 3: Ordinary\n");
             n->skill = check_interval(0, 3);
             break;
         case 2:
+            printf("// Insert their demand for rations (1-20):\n");
             n->rations = check_interval(1, 20);
             break;
         case 3:
+            printf("// Insert their health (0-100):\n");
             n->health = check_interval(0, 100);
             n->state_of_health = check_state_health(n->health);
             break;
         case 4:
+            printf("// Insert their threat level (1-10):\n");
             n->threat_level = check_interval(1, 10);
             break;
         case 0:

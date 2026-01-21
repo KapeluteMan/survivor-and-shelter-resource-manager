@@ -20,11 +20,9 @@
 #include "starting_functions.h"
 #include <conio.h>
 
+void next_day(struct Survivor* s_head, struct Quest* q_head, int *rations) {
 
-
-
-
-
+}
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
@@ -387,8 +385,8 @@ void survivor_menu(struct Survivor **head) {
                 getch();
                 break;
             case 3:
-                print_list(*head);
                 system("cls");
+                print_list(*head);
                 edit_survivor(*head);
 
                 break;
