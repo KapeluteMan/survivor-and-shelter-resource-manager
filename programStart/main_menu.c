@@ -70,7 +70,14 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         print_list(s_head);
         printf("Whose survivor you wish to send on a mission (enter id)?");
         int tym2 = check_interval(1,check_amount(s_head));
+
         struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
+        if ((survivor_to_mission->status_of_survivor == ON_MISSION) || (survivor_to_mission->status_of_survivor == MISSING)) {
+            printf("This survivor cannot be chosen!\n");
+            getch();
+            return;
+        }
+
         struct Quest *mission_to_add = copy_quest(rand_quest);
         //przypusanie survivor do quest
         survivor_to_quest(mission_to_add, survivor_to_mission);

@@ -159,6 +159,7 @@ void survivor_to_quest(Quest *quest, struct Survivor *survivor) {
         return;
     }
 
+
     strncpy(quest->survivor_name, survivor->name, sizeof(quest->survivor_name) - 1);
     quest->survivor_name[sizeof(quest->survivor_name) - 1] = '\0';
 
@@ -170,6 +171,8 @@ void minus_1_to_quest(struct Quest *head) {
     while (next!=NULL) {
         next->quest_length--;
         next=next->next;
+
+
     }
 }
 
