@@ -74,7 +74,7 @@ void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *r
         printf("Survivor %s did not return to shelter",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=MISSING;
     } else {
-
+        find_by_name(head, finished_quest->survivor_name)->status_of_survivor=WAITING;
         if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
             *rations += 120-finished_quest->succession_rate * 3;
         }
