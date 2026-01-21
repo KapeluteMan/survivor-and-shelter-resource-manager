@@ -7,6 +7,9 @@
 #include "list_operations.h"
 #include "../survivor/list_operations.h"
 
+#include <conio.h>
+
+#include "../programStart/starting_functions.h"
 #include "../survivor/find.h"
 
 
@@ -70,13 +73,16 @@ int calc_chance_of_success(struct Survivor* survivor) {
 }
 
 void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *rations) {
+    show_title();
     if (rand() % 10 == 0) {
-        printf("Survivor %s did not return to shelter",finished_quest->survivor_name);
+        printf("Survivor %s did not return to shelter\n",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=MISSING;
     } else {
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=WAITING;
         if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
-            *rations += 120-finished_quest->succession_rate * 3;
+            int pom = (300-finished_quest->succession_rate) * 3;
+            printf("Survivor return with %d rations\n", *rations);
+            *rations += pom;
         }
         struct Survivor *next = head;
         while (next!=NULL) {
@@ -104,6 +110,7 @@ void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *r
             head = add_survivor_name(head);
         }
     }
+    getch();
 }
 
 Quest *checked_finished_quest(struct Quest *head, struct Survivor *s_head, int *rations) {
@@ -156,6 +163,14 @@ void survivor_to_quest(Quest *quest, struct Survivor *survivor) {
     quest->survivor_name[sizeof(quest->survivor_name) - 1] = '\0';
 
     survivor->status_of_survivor = ON_MISSION;
+}
+
+void minus_1_to_quest(struct Quest *head) {
+    struct Quest* next = head;
+    while (next!=NULL) {
+        next->quest_length--;
+        next=next->next;
+    }
 }
 
 

@@ -20,10 +20,6 @@
 #include "starting_functions.h"
 #include <conio.h>
 
-void next_day(struct Survivor* s_head, struct Quest* q_head, int *rations) {
-
-}
-
 void check_rations(struct Survivor* head, int *rations) {
     struct Survivor* n = head;
     if (rations == NULL) {
@@ -39,11 +35,23 @@ void check_rations(struct Survivor* head, int *rations) {
 
         } else {
             int tmp = n->rations;
+            n->health+=5;
+            if (n->health>100) {
+                n->health=100;
+            }
             *rations = *rations - tmp;
         }
 
         n = n->next;
     }
+}
+
+void next_day(struct Survivor* s_head, struct Quest* q_in_progress_head, int *rations, int * day) {
+    *day++;
+    minus_1_to_quest(q_in_progress_head);
+    checked_finished_quest(q_in_progress_head,s_head, rations);
+    check_rations(s_head, rations);
+    s_head=delete_by_health(s_head,10,2);
 }
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
@@ -517,6 +525,8 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
             case 3:
                 menu_quest(*q_head,*head,quest_in_progress);
                 break;
+            case 4:
+                next_day(*head, *quest_in_progress,rations, NULL);
             case 0:
                 printf("\nExiting Survivor Manager...\n");
                 menu = 0;
