@@ -29,7 +29,7 @@
 int main() {
     srand(time(NULL));
     Survivor *head = NULL;
-
+    int rations = 1000;
     struct Quest *q_head = NULL;
     struct Quest *quest_in_progress = NULL;
     start_program(&head,&q_head);
