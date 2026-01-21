@@ -1009,3 +1009,5 @@ Timofej 0 6 32 2 6 0
 Aron 1 9 78 1 5 0
 Sefora 2 11 93 0 8 0
 Tomasz 3 3 47 2 3 0
+Start of session: 21/01/2026 21:07:41
+Start of session: 21/01/2026 21:10:22
