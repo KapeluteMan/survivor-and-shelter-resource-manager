@@ -527,7 +527,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                 menu_quest(*q_head,*head,quest_in_progress);
                 break;
             case 4:
-                next_day(*head, *quest_in_progress,rations, NULL);
+                next_day(*head, *quest_in_progress,rations, day);
             case 0:
                 printf("\nExiting Survivor Manager...\n");
                 menu = 0;
