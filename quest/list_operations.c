@@ -34,12 +34,12 @@ Quest *random_quest(Quest *head) {
         return NULL;
     }
 
-    int pom = rand() % 20 + 1;
+    int pom = rand() % 20;
     Quest *curr = head;
     for (int i = 0; i < pom; i++) {
         curr = curr->next;
     }
-    return copy_quest(curr);
+    return curr;
 }
 
 int calc_chance_of_success(struct Survivor* survivor) {
@@ -133,6 +133,7 @@ Quest *checked_finished_quest(struct Quest *head, struct Survivor *s_head, int *
             } else {
                 tym = next;
                 pre->next = next->next;
+                next=next->next;
                 free(tym);
             }
         } else {
@@ -159,10 +160,7 @@ void survivor_to_quest(Quest *quest, struct Survivor *survivor) {
         return;
     }
 
-
-    strncpy(quest->survivor_name, survivor->name, sizeof(quest->survivor_name) - 1);
-    quest->survivor_name[sizeof(quest->survivor_name) - 1] = '\0';
-
+    strcpy(quest->survivor_name, survivor->name);
     survivor->status_of_survivor = ON_MISSION;
 }
 

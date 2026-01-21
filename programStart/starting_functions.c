@@ -69,7 +69,7 @@ void loading_for(char text[130], bool success) {
     system("cls");
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     show_title();
-    const int pom= 300;
+    const int pom= 5;
     int length = strlen(text);
     spaces(length);
     printf("%s [........]         \r",text);
