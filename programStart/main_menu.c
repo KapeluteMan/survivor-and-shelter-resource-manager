@@ -47,7 +47,7 @@ void check_rations(struct Survivor* head, int *rations) {
 }
 
 void next_day(struct Survivor* s_head, struct Quest* q_in_progress_head, int *rations, int * day) {
-    //(*day)++;
+    *day = *day + 1;
     minus_1_to_quest(q_in_progress_head);
     checked_finished_quest(q_in_progress_head,s_head, rations);
     check_rations(s_head, rations);
