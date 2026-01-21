@@ -25,13 +25,13 @@ struct Survivor* delete_by_id(struct Survivor* head, int id);
 
 struct Survivor *delete_by_name(struct Survivor *head, char name[100],int mode);
 
-struct Survivor *delete_by_skill(struct Survivor *head, enum specialist_skill skill);
+struct Survivor *delete_by_skill(struct Survivor *head, int skill);
 
 struct Survivor *delete_by_rations(struct Survivor *head, int rations, int mode);
 
 struct Survivor *delete_by_health(struct Survivor *head, int health, int mode);
 
-struct Survivor *delete_by_state_of_health(struct Survivor *head, enum state_of_health state_of_health);
+struct Survivor *delete_by_state_of_health(struct Survivor *head, int state_of_health);
 
 struct Survivor *delete_by_threat_level(struct Survivor *head, int threat_level, int mode);
 

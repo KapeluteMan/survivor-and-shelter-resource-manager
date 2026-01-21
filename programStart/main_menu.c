@@ -20,6 +20,7 @@
 #include "starting_functions.h"
 #include <conio.h>
 
+void next_day(struct Survivor* s_head, struct Quest* q_head, int *rations) {
 
 void check_rations(struct Survivor* head, int *rations) {
     struct Survivor* n = head;
@@ -147,6 +148,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("Enter ID: \n");
                 enter_id = insert_int();
                 head = delete_by_id(head, enter_id);
+                getch();
                 break;
             case 2:
                 system("cls");
@@ -170,7 +172,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("3 - ORDINARY\n");
 
                 tmp = check_interval(0, 3);
-                //head = delete_by_skill(head, tmp);
+                head = delete_by_skill(head, tmp);
                 break;
             }
             case 4: {
@@ -199,7 +201,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("3 - DYING\n");
 
                 tmp = check_interval(0, 3);
-                //head = delete_by_state_of_health(head, tmp);
+                head = delete_by_state_of_health(head, tmp);
                 break;
             }
             case 6: {
@@ -403,8 +405,8 @@ void survivor_menu(struct Survivor **head) {
                 getch();
                 break;
             case 3:
-                print_list(*head);
                 system("cls");
+                print_list(*head);
                 edit_survivor(*head);
 
                 break;

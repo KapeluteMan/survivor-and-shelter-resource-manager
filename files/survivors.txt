@@ -17,4 +17,4 @@ Murad 3 63 3 2
 Timofej 0 32 6 6
 Aron 1 78 5 9
 Sefora 2 93 8 11
-Tomasz 3 47 3 3
+Tomaszproblem 3 47 3 3

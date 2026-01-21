@@ -16,7 +16,7 @@ void copy_survivor(const struct Survivor* from, struct Survivor* to) {
     to->next=NULL;
 }
 
-enum specialist_skill form_int_to_enum_skill(int a) {
+enum specialist_skill from_int_to_enum_skill(int a) {
     switch (a) {
         case 0: return MEDIC;
         case 1: return ENGINEER;
@@ -25,7 +25,7 @@ enum specialist_skill form_int_to_enum_skill(int a) {
     }
 }
 
-enum state_of_health form_int_to_enum_state_health(int a) {
+enum state_of_health from_int_to_enum_state_health(int a) {
     switch (a) {
         case 0: return HEALTHY;
         case 1: return WEAKEN;

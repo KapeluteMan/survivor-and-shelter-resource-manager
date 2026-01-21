@@ -264,6 +264,8 @@ void survivor_id_update(Survivor* head) {
 
 Survivor *delete_by_id(Survivor *head, int id) {
     if (head == NULL) {
+        printf("List is empty!");
+        getch();
         return head;
     }
 
@@ -272,6 +274,7 @@ Survivor *delete_by_id(Survivor *head, int id) {
             printf("Nie możesz usunąć surviviora o nazwie : %s\n",head->name);
             return head;
         }
+        printf("\033[31m%s has been buried\033[0m\n", head->name);
         Survivor *new_head = head->next;
         add_one_to_file(head);
         free(head);
@@ -288,6 +291,7 @@ Survivor *delete_by_id(Survivor *head, int id) {
                 printf("Nie możesz usunąć surviviora o nazwie : %s\n",curr->name);
                 return head;
             }
+            printf("\033[31m%s has been buried\033[0m\n", curr->name);
             prev->next = curr->next;
             add_one_to_file(curr);
             free(curr);
@@ -303,8 +307,17 @@ Survivor *delete_by_id(Survivor *head, int id) {
 
 // 0 - dokładny, 1 - perix
 Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -325,14 +338,25 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
 
-Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
+Survivor *delete_by_skill(Survivor *head, int skill) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     struct Survivor *next = head;
-    int to_delete[30]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -346,7 +370,9 @@ Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -354,8 +380,17 @@ Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
@@ -389,7 +424,9 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -397,8 +434,17 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
@@ -432,14 +478,25 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
 
-Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_of_health) {
+Survivor *delete_by_state_of_health(Survivor *head, int state_of_health) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -453,7 +510,9 @@ Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_o
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
+
     }
+    getch();
 
     return head;
 }
@@ -461,8 +520,17 @@ Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_o
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
@@ -497,6 +565,7 @@ Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int con
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
     }
+    getch();
 
     return head;
 }
@@ -546,16 +615,21 @@ void edit_survivor(Survivor *head) {
 
     switch (choice) {
         case 1:
+            printf("// Insert their skill:\n");
+            printf(" - 0: Medic\n - 1: Engineer\n - 2: Hunter\n - 3: Ordinary\n");
             n->skill = check_interval(0, 3);
             break;
         case 2:
+            printf("// Insert their demand for rations (1-20):\n");
             n->rations = check_interval(1, 20);
             break;
         case 3:
+            printf("// Insert their health (0-100):\n");
             n->health = check_interval(0, 100);
             n->state_of_health = check_state_health(n->health);
             break;
         case 4:
+            printf("// Insert their threat level (1-10):\n");
             n->threat_level = check_interval(1, 10);
             break;
         case 0:
