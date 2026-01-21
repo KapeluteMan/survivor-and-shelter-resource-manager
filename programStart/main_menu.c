@@ -21,10 +21,27 @@
 #include <conio.h>
 
 
+void check_rations(struct Survivor* head, int *rations) {
+    struct Survivor* n = head;
+    if (rations == NULL) {
+        return;
+    }
+    while (n != NULL) {
 
+        if (*rations < n->rations) {
+            int tmp = n->health;
+            tmp = tmp - tmp/5;
+            n->health = tmp;
+            *rations = 0;
 
+        } else {
+            int tmp = n->rations;
+            *rations = *rations - tmp;
+        }
 
-
+        n = n->next;
+    }
+}
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
@@ -460,7 +477,7 @@ void fast_menu(struct Survivor *head) {
     }
 }
 
-void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress) {
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations) {
     int menu = 1;
     int option = 0;
     while (menu == 1) {
