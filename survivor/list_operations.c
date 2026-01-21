@@ -271,7 +271,7 @@ Survivor *delete_by_id(Survivor *head, int id) {
 
     if (head->id == id) {
         if (head->status_of_survivor==MISSING || head-> status_of_survivor==ON_MISSION) {
-            printf("Nie możesz usunąć surviviora o nazwie : %s\n",head->name);
+            printf("Can't burry the survivor : %s\n",head->name);
             return head;
         }
         printf("\033[31m%s has been buried\033[0m\n", head->name);
@@ -288,7 +288,7 @@ Survivor *delete_by_id(Survivor *head, int id) {
     while (curr != NULL) {
         if (curr->id == id) {
             if (curr->status_of_survivor==MISSING || curr-> status_of_survivor==ON_MISSION) {
-                printf("Nie możesz usunąć surviviora o nazwie : %s\n",curr->name);
+                printf("Can't burry the survivor : %s\n",curr->name);
                 return head;
             }
             printf("\033[31m%s has been buried\033[0m\n", curr->name);
