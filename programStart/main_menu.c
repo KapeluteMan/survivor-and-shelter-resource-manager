@@ -47,7 +47,7 @@ void check_rations(struct Survivor* head, int *rations) {
 }
 
 void next_day(struct Survivor* s_head, struct Quest* q_in_progress_head, int *rations, int * day) {
-    *day++;
+    *day = *day + 1;
     minus_1_to_quest(q_in_progress_head);
     checked_finished_quest(q_in_progress_head,s_head, rations);
     check_rations(s_head, rations);
@@ -528,6 +528,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                 break;
             case 4:
                 next_day(*head, *quest_in_progress,rations, day);
+                break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");
                 menu = 0;
