@@ -130,6 +130,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("Enter ID: \n");
                 enter_id = insert_int();
                 head = delete_by_id(head, enter_id);
+                getch();
                 break;
             case 2:
                 system("cls");
