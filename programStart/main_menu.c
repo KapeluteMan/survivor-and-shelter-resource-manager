@@ -22,6 +22,8 @@
 
 void next_day(struct Survivor* s_head, struct Quest* q_head, int *rations) {
 
+}
+
 void check_rations(struct Survivor* head, int *rations) {
     struct Survivor* n = head;
     if (rations == NULL) {

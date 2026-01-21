@@ -38,7 +38,7 @@ int main() {
     int menu = 1;
     survivor_health_status_change(head);
     while (menu == 1) {
-        main_menu(&head, &q_head, &quest_in_progress);
+        main_menu(&head, &q_head, &quest_in_progress, &rations);
         break;
     }
 
