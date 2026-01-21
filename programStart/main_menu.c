@@ -532,12 +532,14 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                 break;
             case 4:
                 next_day(*head, *quest_in_progress,rations, day);
+                break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");
                 menu = 0;
                 break;
             default:
                 printf("Sorry, you selected an invalid option.\n");
+                break;
         }
     }
 }
