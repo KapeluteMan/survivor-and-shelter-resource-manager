@@ -489,7 +489,7 @@ void fast_menu(struct Survivor *head) {
     }
 }
 
-void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations) {
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations, int *day){
     int menu = 1;
     int option = 0;
     while (menu == 1) {
@@ -497,6 +497,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
         show_title();
         survivor_id_update(*head);
         survivor_health_status_change(*head);
+        printf("\nDay: %d\nRations: %d\n", *day, *rations);
 
         printf("\n"
                "______________________________\n"
