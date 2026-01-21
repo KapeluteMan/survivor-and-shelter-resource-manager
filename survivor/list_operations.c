@@ -264,6 +264,8 @@ void survivor_id_update(Survivor* head) {
 
 Survivor *delete_by_id(Survivor *head, int id) {
     if (head == NULL) {
+        printf("List is empty!");
+        getch();
         return head;
     }
 
@@ -303,8 +305,17 @@ Survivor *delete_by_id(Survivor *head, int id) {
 
 // 0 - dokładny, 1 - perix
 Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -330,9 +341,18 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
     return head;
 }
 
-Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
+Survivor *delete_by_skill(Survivor *head, int skill) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     struct Survivor *next = head;
-    int to_delete[30]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -354,8 +374,17 @@ Survivor *delete_by_skill(Survivor *head, enum specialist_skill skill) {
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
@@ -397,8 +426,17 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
@@ -437,9 +475,18 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
     return head;
 }
 
-Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_of_health) {
+Survivor *delete_by_state_of_health(Survivor *head, int state_of_health) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
     while (next != NULL) {
         if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
@@ -461,8 +508,17 @@ Survivor *delete_by_state_of_health(Survivor *head, enum state_of_health state_o
 // 1-> takie same jak, 2-> mniejsze niż, 3-> więsze niż
 
 Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int const mode) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
     Survivor *next = head;
-    int to_delete[20]={0};
+    int* to_delete = calloc(check_amount(head),sizeof(int));
+    if (to_delete==NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
     int pom=0;
 
     while (next != NULL) {
