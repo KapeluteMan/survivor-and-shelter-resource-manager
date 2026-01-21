@@ -30,6 +30,7 @@ int main() {
     srand(time(NULL));
     Survivor *head = NULL;
     int rations = 1000;
+    int day = 0;
     struct Quest *q_head = NULL;
     struct Quest *quest_in_progress = NULL;
     start_program(&head,&q_head);
@@ -38,7 +39,7 @@ int main() {
     int menu = 1;
     survivor_health_status_change(head);
     while (menu == 1) {
-        main_menu(&head, &q_head, &quest_in_progress);
+        main_menu(&head, &q_head, &quest_in_progress, &rations, &day);
         break;
     }
 

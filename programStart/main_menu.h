@@ -8,7 +8,7 @@
 
 
 void segregate_filtr_menu(struct Survivor **head);
-void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations);
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations, int *day);
 struct Survivor* survivor_deleting_menu(struct Survivor *head);
 void survivor_menu(struct Survivor **head);
 

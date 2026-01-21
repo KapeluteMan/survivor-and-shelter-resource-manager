@@ -7,6 +7,9 @@
 #include "list_operations.h"
 #include "../survivor/list_operations.h"
 
+#include <conio.h>
+
+#include "../programStart/starting_functions.h"
 #include "../survivor/find.h"
 
 
@@ -31,12 +34,12 @@ Quest *random_quest(Quest *head) {
         return NULL;
     }
 
-    int pom = rand() % 20 + 1;
+    int pom = rand() % 20;
     Quest *curr = head;
     for (int i = 0; i < pom; i++) {
         curr = curr->next;
     }
-    return copy_quest(curr);
+    return curr;
 }
 
 int calc_chance_of_success(struct Survivor* survivor) {
@@ -71,12 +74,15 @@ int calc_chance_of_success(struct Survivor* survivor) {
 
 void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *rations) {
     if (rand() % 10 == 0) {
-        printf("Survivor %s did not return to shelter",finished_quest->survivor_name);
+        printf("Survivor %s did not return to shelter\n",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=MISSING;
     } else {
+        printf("Survivor %s returned to shelter\n",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=WAITING;
         if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
-            *rations += 120-finished_quest->succession_rate * 3;
+            int pom = (300-finished_quest->succession_rate) * 3;
+            printf("Survivor return with %d rations\n", *rations);
+            *rations += pom;
         }
         struct Survivor *next = head;
         while (next!=NULL) {
@@ -104,6 +110,7 @@ void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *r
             head = add_survivor_name(head);
         }
     }
+    getch();
 }
 
 Quest *checked_finished_quest(struct Quest *head, struct Survivor *s_head, int *rations) {
@@ -126,6 +133,7 @@ Quest *checked_finished_quest(struct Quest *head, struct Survivor *s_head, int *
             } else {
                 tym = next;
                 pre->next = next->next;
+                next=next->next;
                 free(tym);
             }
         } else {
@@ -152,10 +160,18 @@ void survivor_to_quest(Quest *quest, struct Survivor *survivor) {
         return;
     }
 
-    strncpy(quest->survivor_name, survivor->name, sizeof(quest->survivor_name) - 1);
-    quest->survivor_name[sizeof(quest->survivor_name) - 1] = '\0';
-
+    strcpy(quest->survivor_name, survivor->name);
     survivor->status_of_survivor = ON_MISSION;
+}
+
+void minus_1_to_quest(struct Quest *head) {
+    struct Quest* next = head;
+    while (next!=NULL) {
+        next->quest_length--;
+        next=next->next;
+
+
+    }
 }
 
 

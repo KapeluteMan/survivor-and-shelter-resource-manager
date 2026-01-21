@@ -20,8 +20,6 @@
 #include "starting_functions.h"
 #include <conio.h>
 
-void next_day(struct Survivor* s_head, struct Quest* q_head, int *rations) {
-
 void check_rations(struct Survivor* head, int *rations) {
     struct Survivor* n = head;
     if (rations == NULL) {
@@ -37,11 +35,27 @@ void check_rations(struct Survivor* head, int *rations) {
 
         } else {
             int tmp = n->rations;
+            n->health+=5;
+            if (n->health>100) {
+                n->health=100;
+            }
             *rations = *rations - tmp;
         }
 
         n = n->next;
     }
+}
+
+void next_day(struct Survivor* s_head, struct Quest** q_in_progress_head, int *rations, int * day) {
+    system("cls");
+    show_title();
+    *day = *day + 1;
+    minus_1_to_quest(*q_in_progress_head);
+    *q_in_progress_head = checked_finished_quest(*q_in_progress_head,s_head, rations);
+    check_rations(s_head, rations);
+    s_head=delete_by_health(s_head,10,2);
+    printf("End of today report\n");
+    getch();
 }
 
 void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
@@ -56,7 +70,14 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         print_list(s_head);
         printf("Whose survivor you wish to send on a mission (enter id)?");
         int tym2 = check_interval(1,check_amount(s_head));
+
         struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
+        if ((survivor_to_mission->status_of_survivor == ON_MISSION) || (survivor_to_mission->status_of_survivor == MISSING)) {
+            printf("This survivor cannot be chosen!\n");
+            getch();
+            return;
+        }
+
         struct Quest *mission_to_add = copy_quest(rand_quest);
         //przypusanie survivor do quest
         survivor_to_quest(mission_to_add, survivor_to_mission);
@@ -153,6 +174,8 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
             case 2:
                 system("cls");
                 char name[100];
+                printf("Survivors:\n");
+                short_print_list(head);
                 printf("Enter name: \n");
                 insert_string(name);
 
@@ -479,7 +502,7 @@ void fast_menu(struct Survivor *head) {
     }
 }
 
-void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations) {
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations, int *day){
     int menu = 1;
     int option = 0;
     while (menu == 1) {
@@ -487,6 +510,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
         show_title();
         survivor_id_update(*head);
         survivor_health_status_change(*head);
+        printf("\nDay: %d\nRations: %d\n", *day, *rations);
 
         printf("\n"
                "______________________________\n"
@@ -515,12 +539,16 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
             case 3:
                 menu_quest(*q_head,*head,quest_in_progress);
                 break;
+            case 4:
+                next_day(*head, quest_in_progress,rations, day);
+                break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");
                 menu = 0;
                 break;
             default:
                 printf("Sorry, you selected an invalid option.\n");
+                break;
         }
     }
 }
