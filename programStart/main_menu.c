@@ -174,6 +174,8 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
             case 2:
                 system("cls");
                 char name[100];
+                printf("Survivors:\n");
+                short_print_list(head);
                 printf("Enter name: \n");
                 insert_string(name);
 

@@ -324,6 +324,7 @@ Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
             if (mode == 0) {
                 if (strcmp(name,next->name)==0) {
                     to_delete[pom]=next->id;
+                    pom++;
                     break;
                 }
             } else {
@@ -599,6 +600,7 @@ void edit_survivor(Survivor *head) {
 
     if (n == NULL) {
         printf(" A survivor not found\n");
+        getch();
         return;
     }
 
