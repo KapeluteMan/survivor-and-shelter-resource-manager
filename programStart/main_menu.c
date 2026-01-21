@@ -66,6 +66,47 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
 
 
 
+void menu_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
+    int menu = 1;
+
+    while (menu) {
+        system("cls");
+        jss_title();
+        printf("\n"
+               "______________________________\n"
+               "|   1 - Send on a Mission    |\n"
+               "|   2 - Info                 |\n"
+               "|   0 - Exit                 |\n"
+               "------------------------------\n");
+
+        printf("\nChoose option: ");
+        int wybor = check_interval(0, 8);
+
+        struct Survivor *result = NULL;
+
+        switch (wybor) {
+            case 1: {
+                system("cls");
+                menu_assign_quest(q_head,s_head,quest_in_progress);
+                break;
+            }
+
+            case 2: {
+                system("cls");
+                print_quest_list(*quest_in_progress);
+                getch();
+            }
+
+            case 0: {
+                menu = 0;
+                break;
+            }
+        }
+    }
+}
+
+
+
 struct Survivor* survivor_deleting_menu(struct Survivor *head){
     survivor_deleting_title();
     int menu = 1;
@@ -470,7 +511,7 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                 fast_menu(*head);
                 break;
             case 3:
-                menu_assign_quest(*q_head,*head,quest_in_progress);
+                menu_quest(*q_head,*head,quest_in_progress);
                 break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");
