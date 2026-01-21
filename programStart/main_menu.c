@@ -153,7 +153,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("3 - ORDINARY\n");
 
                 tmp = check_interval(0, 3);
-                //head = delete_by_skill(head, tmp);
+                head = delete_by_skill(head, tmp);
                 break;
             }
             case 4: {
@@ -182,7 +182,7 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 printf("3 - DYING\n");
 
                 tmp = check_interval(0, 3);
-                //head = delete_by_state_of_health(head, tmp);
+                head = delete_by_state_of_health(head, tmp);
                 break;
             }
             case 6: {
