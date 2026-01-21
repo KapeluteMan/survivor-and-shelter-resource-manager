@@ -73,11 +73,11 @@ int calc_chance_of_success(struct Survivor* survivor) {
 }
 
 void result_of_quest(struct Quest *finished_quest, struct Survivor *head, int *rations) {
-    show_title();
     if (rand() % 10 == 0) {
         printf("Survivor %s did not return to shelter\n",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=MISSING;
     } else {
+        printf("Survivor %s returned to shelter\n",finished_quest->survivor_name);
         find_by_name(head, finished_quest->survivor_name)->status_of_survivor=WAITING;
         if (calc_chance_of_success(find_by_name(head, finished_quest->survivor_name)) > 100-finished_quest->succession_rate) { //czy misja się powiodła
             int pom = (300-finished_quest->succession_rate) * 3;
