@@ -373,7 +373,7 @@ Survivor *delete_by_skill(Survivor *head, int skill) {
 
     }
     getch();
-
+    free(to_delete);
     return head;
 }
 
@@ -427,7 +427,7 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
 
     }
     getch();
-
+    free(to_delete);
     return head;
 }
 
@@ -478,10 +478,9 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
 
     for (int i=0;i<pom;i++) {
         head = delete_by_id(head, to_delete[i]);
-
     }
-    getch();
 
+    free(to_delete);
     return head;
 }
 
@@ -513,7 +512,7 @@ Survivor *delete_by_state_of_health(Survivor *head, int state_of_health) {
 
     }
     getch();
-
+    free(to_delete);
     return head;
 }
 
@@ -566,7 +565,7 @@ Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int con
         head = delete_by_id(head, to_delete[i]);
     }
     getch();
-
+    free(to_delete);
     return head;
 }
 
