@@ -46,3 +46,14 @@ void fast_title() {
 
 
 }
+
+void jss_title() {
+    printf("      _  ___   ___   \n");
+    printf("  _ | |/ __| / __|  \n");
+    printf(" | || |\\__ \\_\\__ \\_ \n");
+    printf("  \\__(_)___(_)___(_)(Just Survivr Somehow)\n");
+    printf("                     \n");
+
+
+
+}
