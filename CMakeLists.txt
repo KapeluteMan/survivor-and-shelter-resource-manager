@@ -30,6 +30,7 @@ add_executable(survivor-and-shelter-resource-manager
         survivor/list_operations.h
         survivor/find.c
         survivor/find.h
+
         programStart/main_menu.c
         programStart/main_menu.h
         programStart/ascii_titles.c

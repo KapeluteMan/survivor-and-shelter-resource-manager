@@ -1,78 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#include "ascii_titles.h"
-#include "../logicFunctions/logic_functions.h"
+#include <conio.h>
 
 #include "../survivor/list_operations.h"
 #include "../survivor/show.h"
 #include "../survivor/survivor_struct.h"
+#include "../survivor/find.h"
+#include "../survivor/file_operations.h"
 
 #include "../quest/quest_struct.h"
 #include "../quest/list_operations.h"
 #include "../quest/show.h"
 
+#include "ascii_titles.h"
+#include "../logicFunctions/logic_functions.h"
+#include "starting_functions.h"
+
+
 #include "main_menu.h"
 
-#include "../survivor/find.h"
-#include "../survivor/file_operations.h"
-#include "starting_functions.h"
-#include <conio.h>
-
-void check_rations(struct Survivor* head, int *rations) {
-    struct Survivor* n = head;
+void check_rations(struct Survivor *head, int *rations) {
+    struct Survivor *n = head;
     if (rations == NULL) {
         return;
     }
     while (n != NULL) {
-
-        if (*rations < n->rations) {
-            int tmp = n->health;
-            tmp = tmp - tmp/5;
-            n->health = tmp;
-            *rations = 0;
-
-        } else {
-            int tmp = n->rations;
-            n->health+=5;
-            if (n->health>100) {
-                n->health=100;
+        if (n->status_of_survivor != MISSING && n->status_of_survivor != DEAD && n->status_of_survivor != ON_MISSION) {
+            if (*rations < n->rations) {
+                int tmp = n->health;
+                tmp = tmp - tmp / 5;
+                n->health = tmp;
+                *rations = 0;
+            } else {
+                int tmp = n->rations;
+                n->health += 5;
+                if (n->health > 100) {
+                    n->health = 100;
+                }
+                *rations = *rations - tmp;
             }
-            *rations = *rations - tmp;
         }
-
         n = n->next;
     }
 }
 
-void next_day(struct Survivor* s_head, struct Quest** q_in_progress_head, int *rations, int * day) {
+void next_day(struct Survivor **s_head, struct Quest **q_in_progress_head, int *rations, int *day) {
     system("cls");
     show_title();
     *day = *day + 1;
     minus_1_to_quest(*q_in_progress_head);
-    *q_in_progress_head = checked_finished_quest(*q_in_progress_head,s_head, rations);
-    check_rations(s_head, rations);
-    s_head=delete_by_health(s_head,10,2);
+    *q_in_progress_head = checked_finished_quest(*q_in_progress_head, *s_head, rations);
+    check_rations(*s_head, rations);
+    *s_head = delete_by_health(*s_head, 10, 2);
+    check_wounded(*s_head);
+    *s_head = delete_dead(*s_head);
     printf("End of today report\n");
     getch();
 }
 
-void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
+void menu_assign_quest(struct Quest *q_head, struct Survivor *s_head, struct Quest **quest_in_progress) {
     struct Quest *rand_quest = random_quest(q_head);
-    printf("Available misson:\n");
+    printf("Available mission:\n");
     print_quest(rand_quest);
     printf("Do you want to take this mission?\n"
-           "1 - Yes\n"
-           "0 - NO\n");
-    int tym1 = check_interval(0,1);
-    if (tym1 ==1) {
+        "1 - Yes\n"
+        "0 - NO\n");
+    int tym1 = check_interval(0, 1);
+    if (tym1 == 1) {
         print_list(s_head);
         printf("Whose survivor you wish to send on a mission (enter id)?");
-        int tym2 = check_interval(1,check_amount(s_head));
+        int tym2 = check_interval(1, check_amount(s_head));
 
-        struct Survivor *survivor_to_mission = find_by_id(s_head,tym2);
-        if ((survivor_to_mission->status_of_survivor == ON_MISSION) || (survivor_to_mission->status_of_survivor == MISSING)) {
+        struct Survivor *survivor_to_mission = find_by_id(s_head, tym2);
+        if ((survivor_to_mission->status_of_survivor == ON_MISSION) || (
+                survivor_to_mission->status_of_survivor == MISSING)) {
             printf("This survivor cannot be chosen!\n");
             getch();
             return;
@@ -81,35 +82,31 @@ void menu_assign_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest
         struct Quest *mission_to_add = copy_quest(rand_quest);
         //przypusanie survivor do quest
         survivor_to_quest(mission_to_add, survivor_to_mission);
-        *quest_in_progress = add_quest(*quest_in_progress,mission_to_add);
+        *quest_in_progress = add_quest(*quest_in_progress, mission_to_add);
     }
-
 }
 
 
-
-void menu_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **quest_in_progress) {
+void menu_quest(struct Quest *q_head, struct Survivor *s_head, struct Quest **quest_in_progress) {
     int menu = 1;
 
     while (menu) {
         system("cls");
         jss_title();
         printf("\n"
-               "______________________________\n"
-               "|   1 - Send on a Mission    |\n"
-               "|   2 - Info                 |\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - Send on a Mission    |\n"
+            "|   2 - Info                 |\n"
+            "|   0 - Exit                 |\n"
+            "------------------------------\n");
 
         printf("\nChoose option: ");
-        int wybor = check_interval(0, 8);
-
-        struct Survivor *result = NULL;
+        int wybor = check_interval(0, 2);
 
         switch (wybor) {
             case 1: {
                 system("cls");
-                menu_assign_quest(q_head,s_head,quest_in_progress);
+                menu_assign_quest(q_head, s_head, quest_in_progress);
                 break;
             }
 
@@ -128,8 +125,7 @@ void menu_quest(struct Quest *q_head,struct Survivor *s_head,struct Quest **ques
 }
 
 
-
-struct Survivor* survivor_deleting_menu(struct Survivor *head){
+struct Survivor *survivor_deleting_menu(struct Survivor *head) {
     survivor_deleting_title();
     int menu = 1;
     int tmp = 0;
@@ -140,21 +136,21 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
         survivor_health_status_change(head);
         survivor_deleting_title();
         printf("\n"
-               "______________________________\n"
-               "|   1 - ID                   |\n"
-               "\n"
-               "|   2 - NAME                 |\n"
-               "\n"
-               "|   3 - SKILL                |\n"
-               "\n"
-               "|   4 - RATIONS              |\n"
-               "\n"
-               "|   5 - STATE OF HEALTH      |\n"
-               "\n"
-               "|   6 - THREAT LEVEL         |\n"
-               "\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - ID                   |\n"
+            "\n"
+            "|   2 - NAME                 |\n"
+            "\n"
+            "|   3 - SKILL                |\n"
+            "\n"
+            "|   4 - RATIONS              |\n"
+            "\n"
+            "|   5 - STATE OF HEALTH      |\n"
+            "\n"
+            "|   6 - THREAT LEVEL         |\n"
+            "\n"
+            "|   0 - Exit                 |\n"
+            "------------------------------\n");
 
         printf("\nChoose your option: \n");
         int wybor = check_interval(0, 6);
@@ -180,10 +176,10 @@ struct Survivor* survivor_deleting_menu(struct Survivor *head){
                 insert_string(name);
 
                 printf("Choose mode:\n"
-                       "|0 - Look for the exact name\n"
-                       "|1 - Search by Prefix\n");
-                tmp = check_interval(0,1);
-                head = delete_by_name(head, name,tmp);
+                    "|0 - Look for the exact name\n"
+                    "|1 - Search by Prefix\n");
+                tmp = check_interval(0, 1);
+                head = delete_by_name(head, name, tmp);
                 break;
             case 3: {
                 system("cls");
@@ -266,17 +262,17 @@ void find_menu(struct Survivor *head) {
         add_all_to_file(head);
         survivor_health_status_change(head);
         printf("\n"
-               "______________________________\n"
-               "|   1 - Find by ID           |\n"
-               "|   2 - Find by NAME         |\n"
-               "|   3 - Find by PREFIX NAME  |\n"
-               "|   4 - Find by SKILL        |\n"
-               "|   5 - Find by RATIONS      |\n"
-               "|   6 - Find by HEALTH       |\n"
-               "|   7 - Find by HEALTH STATE |\n"
-               "|   8 - Find by THREAT LEVEL |\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - Find by ID           |\n"
+            "|   2 - Find by NAME         |\n"
+            "|   3 - Find by PREFIX NAME  |\n"
+            "|   4 - Find by SKILL        |\n"
+            "|   5 - Find by RATIONS      |\n"
+            "|   6 - Find by HEALTH       |\n"
+            "|   7 - Find by HEALTH STATE |\n"
+            "|   8 - Find by THREAT LEVEL |\n"
+            "|   0 - Exit                 |\n"
+            "------------------------------\n");
 
         printf("\nChoose option: ");
         int wybor = check_interval(0, 8);
@@ -284,8 +280,8 @@ void find_menu(struct Survivor *head) {
         struct Survivor *result = NULL;
 
         switch (wybor) {
-
-            case 1: { // ID
+            case 1: {
+                // ID
                 int id;
                 printf("Enter ID: ");
                 id = insert_int();
@@ -298,7 +294,8 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 2: { // NAME
+            case 2: {
+                // NAME
                 char name[100];
                 printf("Enter name: ");
                 insert_string(name);
@@ -311,7 +308,8 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 3: { // PREFIX
+            case 3: {
+                // PREFIX
                 char prefix[100];
                 printf("Enter prefix: ");
                 insert_string(prefix);
@@ -322,9 +320,10 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 4: { // SKILL
+            case 4: {
+                // SKILL
                 printf("0-MEDIC 1-ENGINEER 2-HUNTER 3-ORDINARY\n");
-                int skill = check_interval(0,3);
+                int skill = check_interval(0, 3);
                 result = find_by_skill(head, skill);
                 print_list(result);
                 free_list(result);
@@ -332,12 +331,13 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 5: { // RATIONS
+            case 5: {
+                // RATIONS
                 int rations, mode;
                 printf("Enter rations: ");
                 rations = insert_int();
                 printf("1-equal 2-less 3-greater\n");
-                mode = check_interval(1,3);
+                mode = check_interval(1, 3);
                 result = find_by_rations(head, rations, mode);
                 print_list(result);
                 free_list(result);
@@ -345,12 +345,13 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 6: { // HEALTH
+            case 6: {
+                // HEALTH
                 int health, mode;
                 printf("Enter health: ");
                 health = insert_int();
                 printf("1-equal 2-less 3-greater\n");
-                mode = check_interval(1,3);
+                mode = check_interval(1, 3);
                 result = find_by_health(head, health, mode);
                 print_list(result);
                 free_list(result);
@@ -358,9 +359,10 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 7: { // HEALTH STATE
+            case 7: {
+                // HEALTH STATE
                 printf("0-HEALTHY 1-WEAKEN 2-SICK 3-DYING\n");
-                int state = check_interval(0,3);
+                int state = check_interval(0, 3);
                 result = find_by_health_state(head, state);
                 print_list(result);
                 free_list(result);
@@ -368,12 +370,13 @@ void find_menu(struct Survivor *head) {
                 break;
             }
 
-            case 8: { // THREAT
+            case 8: {
+                // THREAT
                 int threat, mode;
                 printf("Enter threat level: ");
                 threat = insert_int();
                 printf("1-equal 2-greater 3-less\n");
-                mode = check_interval(1,3);
+                mode = check_interval(1, 3);
                 result = find_by_threat_level(head, threat, mode);
                 print_list(result);
                 free_list(result);
@@ -389,7 +392,6 @@ void find_menu(struct Survivor *head) {
 }
 
 
-
 void survivor_menu(struct Survivor **head) {
     int menu = 1;
     int tmp = 0;
@@ -399,19 +401,19 @@ void survivor_menu(struct Survivor **head) {
         survivor_health_status_change(*head);
         survivor_editing_title();
         printf("\n"
-               "______________________________\n"
-               "|   1 - Add the Survivor     |\n"
-               "\n"
-               "|   2 - List the Survivors   |\n"
-               "\n"
-               "|   3 - Edit                 |\n"
-               "\n"
-               "|   4 - Check amount         |\n"
-               "\n"
-               "|   5 - DELETE               |\n"
-               "\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - Add the Survivor     |\n"
+            "\n"
+            "|   2 - List the Survivors   |\n"
+            "\n"
+            "|   3 - Edit                 |\n"
+            "\n"
+            "|   4 - Check amount         |\n"
+            "\n"
+            "|   5 - DELETE               |\n"
+            "\n"
+            "|   0 - Exit                 |\n"
+            "------------------------------\n");
 
         printf("\nChoose your option: \n");
         int wybor = check_interval(0, 5);
@@ -464,13 +466,13 @@ void fast_menu(struct Survivor *head) {
         survivor_health_status_change(head);
 
         printf("\n"
-               "______________________________\n"
-               "|   1 - Segregate           |\n"
-               "\n"
-               "|   2 - Find                |\n"
-               "\n"
-               "|   0 - Exit                |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - Segregate           |\n"
+            "\n"
+            "|   2 - Find                |\n"
+            "\n"
+            "|   0 - Exit                |\n"
+            "------------------------------\n");
 
         printf("\nChoose your option: \n");
         int wybor = check_interval(0, 2);
@@ -478,14 +480,14 @@ void fast_menu(struct Survivor *head) {
         switch (wybor) {
             case 1:
                 printf("Choose an option: \n"
-                       "0 - Sort by name\n"
-                       "1 - Sort by skill\n"
-                       "2 - Sort by rations\n"
-                       "3 - Sort by health\n"
-                       "4 - Sort bt threatLevel\n");
-                option = check_interval(0,4);
+                    "0 - Sort by name\n"
+                    "1 - Sort by skill\n"
+                    "2 - Sort by rations\n"
+                    "3 - Sort by health\n"
+                    "4 - Sort bt threatLevel\n");
+                option = check_interval(0, 4);
                 printf("\n0 - Ascending >\n1 - Descending <\n");
-                type = check_interval(0,1);
+                type = check_interval(0, 1);
                 bubble_segregate(head, option, type);
                 break;
             case 2:
@@ -502,7 +504,8 @@ void fast_menu(struct Survivor *head) {
     }
 }
 
-void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations, int *day){
+void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **quest_in_progress, int *rations,
+               int *day) {
     int menu = 1;
     int option = 0;
     while (menu == 1) {
@@ -510,20 +513,25 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
         show_title();
         survivor_id_update(*head);
         survivor_health_status_change(*head);
-        printf("\nDay: %d\nRations: %d\n", *day, *rations);
+        if (*day == 69) {
+            printf("\nDay: \033[33m%d\033[0m \nRations: %d\n", *day, *rations);
+        } else {
+            printf("\nDay: %d\nRations: %d\n", *day, *rations);
+        }
+
 
         printf("\n"
-               "______________________________\n"
-               "|   1 - S.M.A.R.T.           |\n"
-               "\n"
-               "|   2 - F.A.S.T.             |\n"
-               "\n"
-               "|   3 - Quests               |\n"
-               "\n"
-               "|   4 - Next Day...          |\n"
-               "\n"
-               "|   0 - Exit                 |\n"
-               "------------------------------\n");
+            "______________________________\n"
+            "|   1 - S.M.A.R.T.           |\n"
+            "\n"
+            "|   2 - F.A.S.T.             |\n"
+            "\n"
+            "|   3 - Quests               |\n"
+            "\n"
+            "|   4 - Next Day...          |\n"
+            "\n"
+            "|   0 - Exit                 |\n"
+            "------------------------------\n");
 
         printf("\nChoose your option: \n");
         int wybor = check_interval(0, 4);
@@ -537,10 +545,10 @@ void main_menu(struct Survivor **head, struct Quest **q_head, struct Quest **que
                 fast_menu(*head);
                 break;
             case 3:
-                menu_quest(*q_head,*head,quest_in_progress);
+                menu_quest(*q_head, *head, quest_in_progress);
                 break;
             case 4:
-                next_day(*head, quest_in_progress,rations, day);
+                next_day(head, quest_in_progress, rations, day);
                 break;
             case 0:
                 printf("\nExiting Survivor Manager...\n");

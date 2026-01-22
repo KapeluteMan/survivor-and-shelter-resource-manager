@@ -35,6 +35,10 @@ struct Survivor *delete_by_state_of_health(struct Survivor *head, int state_of_h
 
 struct Survivor *delete_by_threat_level(struct Survivor *head, int threat_level, int mode);
 
+struct Survivor *delete_dead(struct Survivor *head);
+
 void free_list(struct Survivor * head);
+
+void check_wounded(struct Survivor *head);
 
 #endif //SURVIVOR_LIST_OPERATIONS_H

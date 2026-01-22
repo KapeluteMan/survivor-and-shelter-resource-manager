@@ -34,15 +34,17 @@ struct Survivor *add_survivor(struct Survivor *head) {
     printf("// Insert name:\n");
     char text[100];
     insert_string(text);
-    while (getchar()!='\n') {}
-    Survivor* potential_survivor = find_by_name(head,text);
-    while (potential_survivor!=NULL) {
+    while (getchar() != '\n') {
+    }
+    Survivor *potential_survivor = find_by_name(head, text);
+    while (potential_survivor != NULL) {
         printf("There is survivor of that name, enter different one\n");
         insert_string(text);
-        while (getchar()!='\n') {}
-        potential_survivor = find_by_name(head,text);
+        while (getchar() != '\n') {
+        }
+        potential_survivor = find_by_name(head, text);
     }
-    strcpy(n->name,text);
+    strcpy(n->name, text);
 
     printf("// Insert their skill:\n");
     printf(" - 0: Medic\n - 1: Engineer\n - 2: Hunter\n - 3: Ordinary\n");
@@ -74,24 +76,26 @@ struct Survivor *add_survivor_name(struct Survivor *head) {
     printf("// Insert name:\n");
     char text[100];
     insert_string(text);
-    while (getchar()!='\n') {}
-    Survivor* potential_survivor = find_by_name(head,text);
-    while (potential_survivor!=NULL) {
+    while (getchar() != '\n') {
+    }
+    Survivor *potential_survivor = find_by_name(head, text);
+    while (potential_survivor != NULL) {
         printf("There is survivor of that name, enter different one\n");
         insert_string(text);
-        while (getchar()!='\n') {}
-        potential_survivor = find_by_name(head,text);
+        while (getchar() != '\n') {
+        }
+        potential_survivor = find_by_name(head, text);
     }
-    strcpy(n->name,text);
+    strcpy(n->name, text);
 
-    n->skill = rand()%4;
+    n->skill = rand() % 4;
 
-    n->rations = rand()%10+1;
+    n->rations = rand() % 10 + 1;
 
-    n->health = rand()%100+1;
+    n->health = rand() % 100 + 1;
     n->state_of_health = check_state_health(n->health);
 
-    n->threat_level = rand()%10+1;
+    n->threat_level = rand() % 10 + 1;
 
     n->status_of_survivor = 0;
     n->next = NULL;
@@ -111,29 +115,35 @@ int check_amount(Survivor *head) {
 }
 
 int check_state_health(int value) {
-    if (value >= 70) {
-        return 0;
+    if (value > 79) {
+        return HEALTHY;
     }
-    return 1;
+    if (value > 49) {
+        return WEAKEN;
+    }
+    if (value > 19) {
+        return SICK;
+    }
+    return DYING;
 }
 
-void survivor_health_status_change(Survivor* head) {
-    if (head==NULL) {
+void survivor_health_status_change(Survivor *head) {
+    if (head == NULL) {
         return;
     }
 
     Survivor *n = head;
-    while (n!=NULL) {
-        if (n->health>79) {
-            n->state_of_health=HEALTHY;
+    while (n != NULL) {
+        if (n->health > 79) {
+            n->state_of_health = HEALTHY;
         } else {
-            if (n->health>49) {
-                n->state_of_health=WEAKEN;
+            if (n->health > 49) {
+                n->state_of_health = WEAKEN;
             } else {
-                if (n->health>19) {
-                    n->state_of_health=SICK;
+                if (n->health > 19) {
+                    n->state_of_health = SICK;
                 } else {
-                    n->state_of_health=DYING;
+                    n->state_of_health = DYING;
                 }
             }
         }
@@ -246,7 +256,7 @@ void bubble_segregate(struct Survivor *head, int option, int type) {
     } while (swapped);
 }
 
-void survivor_id_update(Survivor* head) {
+void survivor_id_update(Survivor *head) {
     if (head == NULL) {
         return;
     }
@@ -259,7 +269,6 @@ void survivor_id_update(Survivor* head) {
         indeks++;
         n = n->next;
     }
-
 }
 
 Survivor *delete_by_id(Survivor *head, int id) {
@@ -270,8 +279,8 @@ Survivor *delete_by_id(Survivor *head, int id) {
     }
 
     if (head->id == id) {
-        if (head->status_of_survivor==MISSING || head-> status_of_survivor==ON_MISSION) {
-            printf("Can't burry the survivor : %s\n",head->name);
+        if (head->status_of_survivor == MISSING || head->status_of_survivor == ON_MISSION) {
+            printf("Can't burry the survivor : %s\n", head->name);
             return head;
         }
         printf("\033[31m%s has been buried\033[0m\n", head->name);
@@ -287,8 +296,8 @@ Survivor *delete_by_id(Survivor *head, int id) {
 
     while (curr != NULL) {
         if (curr->id == id) {
-            if (curr->status_of_survivor==MISSING || curr-> status_of_survivor==ON_MISSION) {
-                printf("Can't burry the survivor : %s\n",curr->name);
+            if (curr->status_of_survivor == MISSING || curr->status_of_survivor == ON_MISSION) {
+                printf("Can't burry the survivor : %s\n", curr->name);
                 return head;
             }
             printf("\033[31m%s has been buried\033[0m\n", curr->name);
@@ -306,40 +315,39 @@ Survivor *delete_by_id(Survivor *head, int id) {
 }
 
 // 0 - dokładny, 1 - perix
-Survivor *delete_by_name(Survivor *head, char name[100],int mode) {
+Survivor *delete_by_name(Survivor *head, char name[100], int mode) {
     if (head == NULL) {
         printf("List is empty!");
         getch();
         return head;
     }
     Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             if (mode == 0) {
-                if (strcmp(name,next->name)==0) {
-                    to_delete[pom]=next->id;
+                if (strcmp(name, next->name) == 0) {
+                    to_delete[pom] = next->id;
                     pom++;
                     break;
                 }
             } else {
-                if (strncmp(name,next->name,strlen(name))==0) {
-                    to_delete[pom]=next->id;
+                if (strncmp(name, next->name, strlen(name)) == 0) {
+                    to_delete[pom] = next->id;
                     pom++;
                 }
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
-
     }
     getch();
 
@@ -353,25 +361,24 @@ Survivor *delete_by_skill(Survivor *head, int skill) {
         return head;
     }
     struct Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             if (skill == next->skill) {
-                to_delete[pom]=next->id;
+                to_delete[pom] = next->id;
                 pom++;
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
-
     }
     getch();
     free(to_delete);
@@ -387,31 +394,31 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
         return head;
     }
     Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
 
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             switch (mode) {
                 case 1:
                     if (rations == next->rations) {
-                        to_delete[pom]=next->id;
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 2:
-                    if (rations>next->rations) {
-                        to_delete[pom]=next->id;
+                    if (rations > next->rations) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 3:
-                    if (rations<next->rations) {
-                        to_delete[pom]=next->id;
+                    if (rations < next->rations) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
@@ -420,12 +427,11 @@ Survivor *delete_by_rations(Survivor *head, int const rations, int const mode) {
                     break;
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
-
     }
     getch();
     free(to_delete);
@@ -441,31 +447,31 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
         return head;
     }
     Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
 
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             switch (mode) {
                 case 1:
                     if (health == next->health) {
-                        to_delete[pom]=next->id;
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 2:
-                    if (health>next->health) {
-                        to_delete[pom]=next->id;
+                    if (health > next->health) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 3:
-                    if (health<next->health) {
-                        to_delete[pom]=next->id;
+                    if (health < next->health) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
@@ -474,10 +480,10 @@ Survivor *delete_by_health(Survivor *head, int const health, int const mode) {
                     break;
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
     }
 
@@ -492,25 +498,24 @@ Survivor *delete_by_state_of_health(Survivor *head, int state_of_health) {
         return head;
     }
     Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             if (state_of_health == next->state_of_health) {
-                to_delete[pom]=next->id;
+                to_delete[pom] = next->id;
                 pom++;
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
-
     }
     getch();
     free(to_delete);
@@ -526,31 +531,31 @@ Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int con
         return head;
     }
     Survivor *next = head;
-    int* to_delete = calloc(check_amount(head),sizeof(int));
-    if (to_delete==NULL) {
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
         printf("Can't buried survivors");
         return NULL;
     }
-    int pom=0;
+    int pom = 0;
 
     while (next != NULL) {
-        if(next->status_of_survivor!=MISSING || next-> status_of_survivor!=ON_MISSION){
+        if (next->status_of_survivor != MISSING || next->status_of_survivor != ON_MISSION) {
             switch (mode) {
                 case 1:
                     if (threat_level == next->threat_level) {
-                        to_delete[pom]=next->id;
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 2:
-                    if (threat_level>next->threat_level) {
-                        to_delete[pom]=next->id;
+                    if (threat_level > next->threat_level) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
                 case 3:
-                    if (threat_level<next->threat_level) {
-                        to_delete[pom]=next->id;
+                    if (threat_level < next->threat_level) {
+                        to_delete[pom] = next->id;
                         pom++;
                     }
                     break;
@@ -559,10 +564,39 @@ Survivor *delete_by_threat_level(Survivor *head, int const threat_level, int con
                     break;
             }
         }
-        next=next->next;
+        next = next->next;
     }
 
-    for (int i=0;i<pom;i++) {
+    for (int i = 0; i < pom; i++) {
+        head = delete_by_id(head, to_delete[i]);
+    }
+    getch();
+    free(to_delete);
+    return head;
+}
+
+Survivor *delete_dead(Survivor *head) {
+    if (head == NULL) {
+        printf("List is empty!");
+        getch();
+        return head;
+    }
+    Survivor *next = head;
+    int *to_delete = calloc(check_amount(head), sizeof(int));
+    if (to_delete == NULL) {
+        printf("Can't buried survivors");
+        return NULL;
+    }
+    int pom = 0;
+    while (next != NULL) {
+        if (next->status_of_survivor == DEAD) {
+            to_delete[pom] = next->id;
+            pom++;
+        }
+        next = next->next;
+    }
+
+    for (int i = 0; i < pom; i++) {
         head = delete_by_id(head, to_delete[i]);
     }
     getch();
@@ -581,7 +615,6 @@ void free_list(Survivor *head) {
 }
 
 
-
 void edit_survivor(Survivor *head) {
     if (head == NULL) {
         printf(" List is empty\n");
@@ -590,7 +623,7 @@ void edit_survivor(Survivor *head) {
 
     int id;
     printf("  Insert id : ");
-    scanf("%d", &id);
+    id = insert_int();
 
     Survivor *n = head;
 
@@ -634,14 +667,25 @@ void edit_survivor(Survivor *head) {
             n->threat_level = check_interval(1, 10);
             break;
         case 0:
+            printf(" Edit cancelled.\n");
+            getch();
             return;
     }
+    printf(" >> Update successful: %s\n", n->name);
+    getch();
 }
 
-
-
-
-
-
-
-
+void check_wounded(struct Survivor *head) {
+    struct Survivor *n = head;
+    while (n != NULL) {
+        if (n->status_of_survivor == WOUNDED) {
+            n->status_of_survivor = WAITING;
+            n->health -= 1;
+            printf("Survivor %s has been healed", n->name);
+            if (n->health < 0) {
+                n->health = 0;
+            }
+        }
+        n = n->next;
+    }
+}

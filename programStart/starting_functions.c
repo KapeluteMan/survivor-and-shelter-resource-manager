@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
+#include <conio.h>
 
 #include "../quest/quest_struct.h"
 #include "../quest/add_from_file.h"
@@ -69,7 +70,7 @@ void loading_for(char text[130], bool success) {
     system("cls");
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     show_title();
-    const int pom= 5;
+    const int pom= 250;
     int length = strlen(text);
     spaces(length);
     printf("%s [........]         \r",text);
@@ -87,25 +88,25 @@ void loading_for(char text[130], bool success) {
     printf("%s [****....]          \r",text);
     _sleep(pom);
     spaces(length);
-    printf("%s [*****...]\r",text);
+    printf("%s [*****...]            \r",text);
     _sleep(pom);
     spaces(length);
-    printf("%s [******..]\r",text);
+    printf("%s [******..]             \r",text);
     _sleep(pom);
     spaces(length);
-    printf("%s [*******.]\r",text);
+    printf("%s [*******.]                \r",text);
     _sleep(pom);
     spaces(length);
-    printf("%s [********]\r",text);
+    printf("%s [********]                \r",text);
     _sleep(pom+300);
     if (success==true) {
         spaces(length);
-        printf("%s  success            \r",text);
+        printf("%s  \033[32msuccess\033[0m            \r",text);
         _sleep(pom+300);
         system("cls");
     } else {
         spaces(length);
-        printf("%s  error\a\a\a               \r",text);
+        printf("%s  \033[31merror\033[0m\a\a\a               \r",text);
         _sleep(pom+300);
     }
 
@@ -164,7 +165,7 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     loading_for("Gathering rations",true);
     show_title();
     printf("Do you want to enter survivors manually?\n");
-    printf("1 - YES\n");
+    printf("\033[31m1 - YES (NOT RECOMMENDED)\033[0m\n");
     printf("0 - NO\n");
     int answer = check_interval(0,1);
     if (answer == 0) {
@@ -200,4 +201,33 @@ void start_program(Survivor** survivor_head, Quest** quest_head) {
     }
 
     loading_for("Loading user",true);
+}
+
+void end_program(int day,int survivors) {
+    FILE *f = fopen("../files/graveyard.txt", "a");
+    if (!f) {
+        perror("Error opening graveyard.txt");
+        return;
+    }
+    time_t time_to_save;
+    time(&time_to_save);
+    char formated_time[80];
+    struct tm *local_time = localtime(&time_to_save);
+    strftime(formated_time, sizeof(formated_time), "%d/%m/%Y %H:%M:%S", local_time);
+    fprintf(f,"End of session: %s\n",formated_time);
+    fprintf(f,"Passed days: %d, remaining survivors: %d",day,survivors);
+    fclose(f);
+
+    system("cls");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+    printf("                                                 \033[30;47m          \033[0m\n");
+    printf("                                               \033[30;47m    Authors:   \033[0m\n");
+    printf("                                            \033[30;47m    Pawel  Brejnak   \033[0m\n");
+    printf("                                            \033[30;47m   Szymon Ostrowski  \033[0m\n");
+    printf("                                            \033[30;47m  Wojciech Tatarczyk \033[0m\n");
+    printf("                                               \033[30;47m               \033[0m\n");
+    printf("                                                 \033[30;47m          \033[0m\n");
+
+    getch();
 }
