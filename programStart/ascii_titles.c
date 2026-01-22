@@ -1,7 +1,3 @@
-//
-// Created by silve on 16.01.2026.
-//
-
 #include "ascii_titles.h"
 
 #include <stdio.h>
@@ -16,15 +12,7 @@ void survivor_editing_title() {
         " |___(_)_|  |_(_)_/ \\_(_)_|_(_)_(_)  (Survival Manager: Adding, Reading and Trashing )\n"
         "                                    \n"
     );
-
-
-
-
-
-
 }
-
-
 
 
 void survivor_deleting_title() {
@@ -36,8 +24,6 @@ void survivor_deleting_title() {
         "   |_||_| \\__,_/__/_||_|\n"
         "                         \n"
     );
-
-
 }
 
 
@@ -47,8 +33,6 @@ void fast_title() {
     printf(" | __| /_\\   / __|_   _|\n");
     printf(" | _| / _ \\ _\\__ \\_| |_ \n");
     printf(" |_(_)_/ \\_(_)___(_)_(_)(Filter and SorTing)\n");
-
-
 }
 
 void jss_title() {
@@ -56,9 +40,6 @@ void jss_title() {
     printf("      _  ___   ___   \n");
     printf("  _ | |/ __| / __|  \n");
     printf(" | || |\\__ \\_\\__ \\_ \n");
-    printf("  \\__(_)___(_)___(_)(Just Survivr Somehow)\n");
+    printf("  \\__(_)___(_)___(_)(Just Survive Somehow)\n");
     printf("                     \n");
-
-
-
 }

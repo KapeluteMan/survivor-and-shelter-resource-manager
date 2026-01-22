@@ -59,10 +59,6 @@ int calc_chance_of_success(struct Survivor* survivor) {
             break;
     }
 
-    if (survivor->status_of_survivor==WOUNDED) {
-        ch=ch*2/3;
-    }
-
     if (survivor->skill!=ORDINARY) {
         ch=ch*2;
     }
